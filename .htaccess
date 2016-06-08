@@ -1,0 +1,8 @@
+############################################
+##                                        ##
+##  Código para inicialização na locaweb  ##
+##                                        ## 
+############################################
+
+AddHandler php56-script .php
+suPHP_ConfigPath /home/xtwo/public_html/application/php.ini

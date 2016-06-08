@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>b.Manager - Dubhay Terceirização Especializada </title>
+	<?php 
+		echo $this->headLink()
+		->prependStylesheet($this->basePath('css/style.css'))
+		->prependStylesheet($this->basePath('css/bootstrap.css'))
+		->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'));
+
+		echo $this->headScript()
+		->prependFile($this->basePath('js/jquery.min.js'))
+		->prependFile($this->basePath('js/bootstrap.min.js'));
+
+	?>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-default">
+			<div class="navbar-head">
+				<a href="/" class="navbar-brand">b.Manager</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="<?= $this->url('application',['controller' => 'Index','action' => 'index']) ?>">Dashboard</a></li>
+				<li><a href="<?= $this->url('application',['controller' => 'Finance','action' => 'index']) ?>">Financeiro</a></li>
+				<li><a href="<?= $this->url('application',['controller' => 'Finance','action' => 'payment']) ?>">Pagamentos</a></li>
+				<li><a href="<?= $this->url('application',['controller' => 'Budget','action' => 'index']) ?>">Orçamentos</a></li>
+				<li><a href="<?= $this->url('application',['controller' => 'User','action' => 'logout']) ?>">Logout</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main class="conteudo">
+		<?php
+			$this->flashHelper();
+			echo $this->content;
+		?>
+	</main>
+	<footer class="rodape navbar navbar-fixed-bottom">
+		&copy b.Manager - Todos os direitos reservados by <a>Xtwo System Solutions</a> 
+	</footer>
+</body>
+</html>
