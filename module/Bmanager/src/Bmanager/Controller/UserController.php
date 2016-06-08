@@ -1,8 +1,5 @@
 <?php
 
-###
-# Controller User
-###
 
 namespace Bmanager\Controller;
 
