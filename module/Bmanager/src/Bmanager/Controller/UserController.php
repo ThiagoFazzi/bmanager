@@ -1,4 +1,9 @@
 <?php
+
+###
+# Controller User
+###
+
 namespace Bmanager\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
