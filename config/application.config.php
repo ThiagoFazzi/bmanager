@@ -13,6 +13,7 @@ return array(
         'Application',
         'Bmanager',
         'Budget',
+        'Finance',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
