@@ -41,9 +41,8 @@ return array(
 	'controllers' => array(
 		'invokables' => array(
 			'Bmanager\Controller\Index' => 'Bmanager\Controller\IndexController',
-			'Bmanager\Controller\Finance' => 'Bmanager\Controller\FinanceController',
-			'Bmanager\Controller\Budget' => 'Bmanager\Controller\BudgetController',
 			'Bmanager\Controller\User' => 'Bmanager\Controller\UserController',
+			'Bmanager\Controller\Company' => 'Bmanager\Controller\CompanyController',
 		)
 	),
 	'view_manager' => array(
@@ -62,7 +61,7 @@ return array(
 	),
 	'doctrine' => array(
 		'driver' => array(
-			'my_annotation_driver' => array(
+			'bmanager_entities' => array(
 				'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
 				'cache' => 'array',
 				'paths' => array(
@@ -71,7 +70,7 @@ return array(
 			),
 			'orm_default' => array(
 				'drivers' => array(
-					'Bmanager\Entity' => 'my_annotation_driver'
+					'Bmanager\Entity' => 'bmanager_entities'
 				)
 			)
 		),
