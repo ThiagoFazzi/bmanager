@@ -72,10 +72,8 @@ Class Budget implements InputFilterAwareInterface {
 	*/
 	private $geoLocation;
 
-	public function  __construct($client, $contact, $phone, $email, $location, $service, $description) {
-		$this->client = $client;
+	public function  __construct($contact, $email, $location, $service, $description) {
 		$this->contact = $contact;
-		$this->phone = $phone;
 		$this->email = $email;
 		$this->location = $location;
 		$this->service = $service;
@@ -144,6 +142,31 @@ Class Budget implements InputFilterAwareInterface {
 
 	public function setDescription($description) {
 		$this->description = $description;
+	}
+
+	public function setInputFilter(InputFilterInterface $InputFilter) {
+		throw new Exception("Você não deve invocar esse metodo");
+	}
+
+	public function getInputFilter() {
+		$InputFilter = new InputFilter();
+
+		$InputFilter->add([
+			'contact' => 'contact',
+			'requered' => 'true',
+			'validators' => [
+				[
+					'contact' => 'StringLength',
+					'options' =>[
+						'min' => 3,
+						'max' => 100
+						]
+					]
+
+				]
+			]);  
+
+			return $InputFilter;
 	}
 
 }
