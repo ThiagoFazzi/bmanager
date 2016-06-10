@@ -24,8 +24,8 @@ return array(
 	),
 	'controllers' => array(
 		'invokables' => array(
-			'Commercial\Controller\Index' => 'Commercial\Controller\IndexController'
-			'Commercial\Controller\Budget' => 'Commercial\Controller\BudgetController'
+			'Commercial\Controller\Index' => 'Commercial\Controller\IndexController',
+			'Commercial\Controller\Budget' => 'Commercial\Controller\BudgetController',
 		)
 	),
 	'view_manager' => array(

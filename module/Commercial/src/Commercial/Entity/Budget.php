@@ -7,7 +7,7 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilter;
 
 /** @ORM\Entity(repositoryClass="\Budget\Entity\Repository\BudgetRepository") */
-Class Budget implements InputFilterAwareInterface{
+Class Budget implements InputFilterAwareInterface {
 
 
 	/**
@@ -72,7 +72,7 @@ Class Budget implements InputFilterAwareInterface{
 	*/
 	private $geoLocation;
 
-	public function  __construct($client, $contact, $phone, $email, $location, $service, $description){
+	public function  __construct($client, $contact, $phone, $email, $location, $service, $description) {
 		$this->client = $client;
 		$this->contact = $contact;
 		$this->phone = $phone;
@@ -82,70 +82,68 @@ Class Budget implements InputFilterAwareInterface{
 		$this->description = $description;
 	}
 
-	public function getId(){
+	public function getId() {
 		return $this->id;
 	}
 
-	public function getClient(){
+	public function getClient() {
 		return $this->client;
 	}
 
-	public function getContact(){
+	public function getContact() {
 		return $this->contact;
 	}
 
-	public function getPhone(){
+	public function getPhone() {
 		return $this->phone;
 	}
 
-	public function getEmail(){
+	public function getEmail() {
 		return $this->email;
 	}	
 
-	public function getLocation(){
+	public function getLocation() {
 		return $this->location;
 	}
 
-	public function getService(){
+	public function getService() {
 		return $this->service;
 	}
 
-	public function getDescription(){
+	public function getDescription() {
 		return $this->description;
 	}
 
-	public function setId($id){
+	public function setId($id) {
 		$this->id = $id;
 	}
 
-	public function setClient($client){
+	public function setClient($client) {
 		$this->client = $client;
 	}
 
-	public function setContact($contact){
+	public function setContact($contact) {
 		$this->contact = $contact;
 	}
 
-	public function setPhone($phone){
+	public function setPhone($phone) {
 		$this->phone = $phone;
 	}
 
-	public function setEmail($email){
-		$this->email =$email
+	public function setEmail($email) {
+		$this->email =$email;
 	}
 
-	public function setLocation($location){
+	public function setLocation($location) {
 		$this->location = $location;
 	}
 
-	public function setService($service){
+	public function setService($service) {
 		$this->service = $service;
 	}
 
-	public function setDescription($description){
+	public function setDescription($description) {
 		$this->description = $description;
 	}
 
-	}
-
-?>
+}
