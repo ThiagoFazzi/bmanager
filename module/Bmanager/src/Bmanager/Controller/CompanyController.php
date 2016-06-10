@@ -1,23 +1,16 @@
 <?php
-namespace Commercial\Controller;
+namespace Bmanager\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class BudgetController extends AbstractActionController {
+class CompanyController extends AbstractActionController {
 
 	public function indexAction() {
 
 		if(!$user = $this->identity()) {
 			return $this->redirect()->toUrl('/User/index');
 		}
-
-		
-
-
-
-
-		
 
 		return new ViewModel();
 	}
