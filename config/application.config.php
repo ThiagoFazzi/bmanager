@@ -12,7 +12,6 @@ return array(
         'DoctrineORMModule',
         'Application',
         'Bmanager',
-        'Budget',
         'Finance',
         'Commercial',
         'Purchase',
