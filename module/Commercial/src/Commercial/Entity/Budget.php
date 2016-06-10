@@ -4,6 +4,7 @@ namespace Commercial\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilter;
 
 /** @ORM\Entity(repositoryClass="\Budget\Entity\Repository\BudgetRepository") */
@@ -144,29 +145,29 @@ Class Budget implements InputFilterAwareInterface {
 		$this->description = $description;
 	}
 
-	public function setInputFilter(InputFilterInterface $InputFilter) {
+	public function setInputFilter(InputFilterInterface $inputFilter) {
 		throw new Exception("Você não deve invocar esse metodo");
 	}
 
 	public function getInputFilter() {
-		$InputFilter = new InputFilter();
+		$inputFilter = new InputFilter();
 
-		$InputFilter->add([
+		$inputFilter->add([
 			'contact' => 'contact',
 			'requered' => 'true',
 			'validators' => [
 				[
-					'contact' => 'StringLength',
+					'name' => 'StringLength',
 					'options' =>[
 						'min' => 3,
 						'max' => 100
-						]
 					]
-
 				]
-			]);  
 
-			return $InputFilter;
+			]
+		]);  
+
+		return $InputFilter;
 	}
 
 }
