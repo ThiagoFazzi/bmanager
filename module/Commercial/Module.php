@@ -1,5 +1,5 @@
 <?php
-namespace Budget;
+namespace Commercial;
 
 class Module
 {

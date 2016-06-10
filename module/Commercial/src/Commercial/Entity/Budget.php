@@ -1,6 +1,6 @@
 <?php
 
-namespace Budget\Entity;
+namespace Commercial\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilterAwareInterface;

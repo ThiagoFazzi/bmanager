@@ -23,9 +23,9 @@
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="<?= $this->url('application',['controller' => 'Index','action' => 'index']) ?>">Dashboard</a></li>
-				<li><a href="<?= $this->url('application',['controller' => 'Finance','action' => 'index']) ?>">Financeiro</a></li>
-				<li><a href="<?= $this->url('application',['controller' => 'Finance','action' => 'payment']) ?>">Pagamentos</a></li>
-				<li><a href="<?= $this->url('budget',['controller' => 'Index','action' => 'index']) ?>">Orçamentos</a></li>
+				<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'index']) ?>">Financeiro</a></li>
+				<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'payment']) ?>">Pagamentos</a></li>
+				<li><a href="<?= $this->url('commercial',['controller' => 'Budget','action' => 'index']) ?>">Orçamentos</a></li>
 				<li><a href="<?= $this->url('application',['controller' => 'User','action' => 'logout']) ?>">Logout</a></li>
 			</ul>
 		</nav>

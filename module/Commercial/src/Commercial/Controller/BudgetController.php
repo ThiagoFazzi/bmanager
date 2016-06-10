@@ -1,11 +1,10 @@
 <?php
-
-namespace Bmanager\Controller;
+namespace Commercial\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class FinanceController extends AbstractActionController {
+class BudgetController extends AbstractActionController {
 
 	public function indexAction() {
 
@@ -16,13 +15,12 @@ class FinanceController extends AbstractActionController {
 		return new ViewModel();
 	}
 
-	public function paymentAction() {
-
+	public function listAction() {
+	
 		if(!$user = $this->identity()) {
 			return $this->redirect()->toUrl('/User/index');
 		}
-	
-		#return $this->redirect()->toUrl('/finance/payment');
+
 		return new ViewModel();
 
 	}	

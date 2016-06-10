@@ -1,5 +1,5 @@
 <?php
-namespace Budget\Controller;
+namespace Commercial\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;

@@ -4,17 +4,17 @@ namespace Budget;
 return array(
 	'router' => array(
 		'routes' => array(
-			'budget' => array(
+			'commercial' => array(
 				'type' => 'Segment',
 				'options' => array(
-					'route' => '/Budget/[:controller[/:action[/:id]]]',
+					'route' => '/Commercial/[:controller[/:action[/:id]]]',
 					'constraints' => array(
 						'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
 						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 						'id' => '[0-9]*',
 					),
 					'defaults' => array(
-						'__NAMESPACE__' => 'Budget\Controller',
+						'__NAMESPACE__' => 'Commercial\Controller',
 						'controller' => 'Index',
 						'action' => 'index'
 					)
@@ -24,7 +24,8 @@ return array(
 	),
 	'controllers' => array(
 		'invokables' => array(
-			'Budget\Controller\Index' => 'Budget\Controller\IndexController'
+			'Commercial\Controller\Index' => 'Commercial\Controller\IndexController'
+			'Commercial\Controller\Budget' => 'Commercial\Controller\BudgetController'
 		)
 	),
 	'view_manager' => array(
@@ -35,5 +36,20 @@ return array(
         #    'layout/layout'           => __DIR__ . './../view/layout/layout.phtml',
         #),
 	),
-
+	'doctrine' => array(
+		'driver' => array(
+			'commercial_entities' => array(
+				'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+				'cache' => 'array',
+				'paths' => array(
+					__DIR__ . '/../src/Commercial/Entity',
+				),	
+			),
+			'orm_default' => array(
+				'drivers' => array(
+					'Commercial\Entity' => "commercial_entities"
+				)
+			)
+		),
+	)
 );
