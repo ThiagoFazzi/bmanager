@@ -27,7 +27,8 @@ class Module
         $translator = $e->getApplication ()->getServiceManager ()->get ( 'translator' );
  
         //Define o local onde se encontra o arquivo de tradução de mensagens
-        $translator->addTranslationFile ( 'phpArray', '../../../application/vendor/zendframework/zend-i18n-resources/languages/pt_BR/Zend_Validate.php' );
+        $translator->addTranslationFile ( 'phpArray', './vendor/zendframework/zend-i18n-resources/languages/pt_BR/Zend_Validate.php' );
+        #$translator->addTranslationFile ( 'phpArray', '../../../application/vendor/zendframework/zend-i18n-resources/languages/pt_BR/Zend_Validate.php' );
  
         //Define o local (você também pode definir diretamente no método acima
         $translator->setLocale ( 'pt_BR' );

@@ -13,13 +13,18 @@ class BudgetController extends AbstractActionController {
 		}
 
 		
+		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		$repository = $entityManager->getRepository('Commercial\Entity\Budget');
 
+		$budgets = $repository->findALL();
 
-
+		$view_params = array(
+			'budgets' => $budgets
+		);
 
 		
 
-		return new ViewModel();
+		return new ViewModel($view_params);
 	}
 
 	public function listAction() {

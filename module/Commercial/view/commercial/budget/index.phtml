@@ -1,1 +1,33 @@
-<h1>Orçamentos</h1>
+<h1>Lista de Orçamentos</h1>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Contato</th>
+			<th>Email</th>
+			<th>Serviço</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+			foreach($budgets as $bud){
+		?>
+			<tr>
+				<td><?= $bud->getContact();?></td>
+				<td><?= $bud->getEmail();?></td>
+				<td><?= $bud->getService();?></td>
+
+				<td>
+				<a href="<?= $this->url('commercial', ['action' =>'remove', 'id' => $bud->getId()]) ?>"class="btn btn-danger">Remover</a>
+				<a href="<?= $this->url('commercial', ['action' =>'edit', 'id' => $bud->getId()]) ?>"class="btn btn-info">Editar</a>
+				</td>
+			</tr>
+		<?php
+		} 
+		?>	
+	</tbody>
+</table>
+
+<?php
+#echo $this->PaginationHelper($produtos,$qtdPorPagina,'/Produtos');
+?>

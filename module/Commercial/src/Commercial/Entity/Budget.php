@@ -7,7 +7,7 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilter;
 
-/** @ORM\Entity(repositoryClass="\Budget\Entity\Repository\BudgetRepository") */
+/** @ORM\Entity */
 Class Budget implements InputFilterAwareInterface {
 
 
@@ -64,7 +64,7 @@ Class Budget implements InputFilterAwareInterface {
 	private $status;
 
 	/**
-	*@ORM\Column(type="string", length=255)
+	*@ORM\Column(type="date")
 	*/
 	private $requestDate;
 
