@@ -14,6 +14,7 @@ class BudgetController extends AbstractActionController {
 
 		
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+<<<<<<< HEAD
 		$repositorio = $entityManager->getRepository('Commercial\Entity\Budget');
 
 		$produtos = $repositorio->findALL();
@@ -21,6 +22,18 @@ class BudgetController extends AbstractActionController {
 		$view_params = array(
 			'produtos' => $produtos,
 		);
+=======
+		$repository = $entityManager->getRepository('Commercial\Entity\Budget');
+
+		$budgets = $repository->findALL();
+
+		$view_params = array(
+			'budgets' => $budgets
+		);
+
+		
+
+>>>>>>> 577d844df56a9c9ec46ee3530044680e5b0420af
 		return new ViewModel($view_params);
 	}
 

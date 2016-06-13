@@ -29,8 +29,8 @@ class UserController extends AbstractActionController {
 			#exit();
 
 
-			$authAdapter->setIdentity($dados['userName']);
-			$authAdapter->setCredential($dados['password']);
+			$authAdapter->setIdentityValue($dados['userName']);
+			$authAdapter->setCredentialValue($dados['password']);
 
 			#echo "<pre>";
 			#print_r($authAdapter->getIdentity());
