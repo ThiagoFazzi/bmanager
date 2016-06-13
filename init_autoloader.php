@@ -17,8 +17,11 @@
  */
 
 // Composer autoloading
-if (file_exists('../../../application/vendor/autoload.php')) {
-    $loader = include '../../../application/vendor/autoload.php';
+#if (file_exists('../../../application/vendor/autoload.php')) {
+#    $loader = include '../../../application/vendor/autoload.php';
+#}
+if (file_exists('vendor/autoload.php')) {
+    $loader = include 'vendor/autoload.php';
 }
 
 if (class_exists('Zend\Loader\AutoloaderFactory')) {
