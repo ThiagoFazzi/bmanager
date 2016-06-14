@@ -64,7 +64,7 @@ Class Budget implements InputFilterAwareInterface {
 	private $status;
 
 	/**
-	*@ORM\Column(type="date")
+	*@ORM\Column(type="datetime")
 	*/
 	private $requestDate;
 
