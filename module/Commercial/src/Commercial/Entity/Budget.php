@@ -19,7 +19,7 @@ Class Budget implements InputFilterAwareInterface {
 	private $id;
 
 	/**
-	*@ORM\Column(type="string", length=255)
+	*@ORM\Column(type="string", length=255,nullable=true)
 	*/
 	private $client;
 
@@ -29,7 +29,7 @@ Class Budget implements InputFilterAwareInterface {
 	private $contact;
 
 	/**
-	*@ORM\Column(type="string", length=255)
+	*@ORM\Column(type="string", length=255,nullable=true)
 	*/
 	private $phone;
 
@@ -44,7 +44,7 @@ Class Budget implements InputFilterAwareInterface {
 	private $location;
 
 	/**
-	*@ORM\Column(type="string", length=255)
+	*@ORM\Column(type="string", length=255,nullable=true)
 	*/
 	private $cep;
 
@@ -64,12 +64,12 @@ Class Budget implements InputFilterAwareInterface {
 	private $status;
 
 	/**
-	*@ORM\Column(type="date")
+	*@ORM\Column(type="datetime")
 	*/
 	private $requestDate;
 
 	/**
-	*@ORM\Column(type="string", length=255)
+	*@ORM\Column(type="string",length=255,nullable=true)
 	*/
 	private $geoLocation;
 
@@ -79,6 +79,9 @@ Class Budget implements InputFilterAwareInterface {
 		$this->location = $location;
 		$this->service = $service;
 		$this->description = $description;
+		$this->status = '1'; // 1(novo) 2(em andamento) 3(aprovado) 4(reprovado).
+		$this->requestDate = new \DateTime('now');
+
 	}
 
 	public function getId() {
@@ -113,6 +116,22 @@ Class Budget implements InputFilterAwareInterface {
 		return $this->description;
 	}
 
+	public function getCep(){
+		return $this->cep;
+	}
+
+	public function getGeoLocation(){
+		return $this->geoLocation;
+	}
+
+	public function getRequestDate(){
+		return $this->requestDate;
+	}
+
+	public function getStatus(){
+		return $this->getStatus;
+	}
+
 	public function setId($id) {
 		$this->id = $id;
 	}
@@ -145,6 +164,23 @@ Class Budget implements InputFilterAwareInterface {
 		$this->description = $description;
 	}
 
+	public function setCep($cep){
+		$this->cep = $cep;
+	}
+
+	public function setGeoLocation($geoLocation){
+		$this->geoLocation = $geoLocation;
+	}
+
+	public function setRequestDate($requestDate){
+		$this->requestDate = $requestDate;
+	}
+
+	public function setStatus($status){
+		$this->status = $status;
+	}
+
+
 	public function setInputFilter(InputFilterInterface $inputFilter) {
 		throw new Exception("Você não deve invocar esse metodo");
 	}
@@ -153,7 +189,7 @@ Class Budget implements InputFilterAwareInterface {
 		$inputFilter = new InputFilter();
 
 		$inputFilter->add([
-			'contact' => 'contact',
+			'name' => 'contact',
 			'requered' => 'true',
 			'validators' => [
 				[
@@ -163,11 +199,10 @@ Class Budget implements InputFilterAwareInterface {
 						'max' => 100
 					]
 				]
-
 			]
 		]);  
 
-		return $InputFilter;
+		return $inputFilter;
 	}
 
 }

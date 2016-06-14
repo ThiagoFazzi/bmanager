@@ -25,14 +25,24 @@
 				<li><a href="<?= $this->url('application',['controller' => 'Index','action' => 'index']) ?>">Dashboard</a></li>
 				<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'index']) ?>">Financeiro</a></li>
 				<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'payment']) ?>">Pagamentos</a></li>
-				<li><a href="<?= $this->url('commercial',['controller' => 'Budget','action' => 'index']) ?>">Orçamentos</a></li>
+				<li><a href="#">Orçamentos</a></li>
+				<li><a href="<?= $this->url('commercial',['controller' => 'Budget','action' => 'index']) ?>">Listar Todos</a></li>
+				<li><a href="<?= $this->url('commercial',['controller' => 'Budget','action' => 'register']) ?>">Cadstrar</a></li>
 				<li><a href="<?= $this->url('application',['controller' => 'User','action' => 'logout']) ?>">Logout</a></li>
 			</ul>
 		</nav>
 	</header>
 	<main class="conteudo">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+			<?php
+				$this->flashHelper();
+			?>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
 		<?php
-			$this->flashHelper();
 			echo $this->content;
 		?>
 	</main>
