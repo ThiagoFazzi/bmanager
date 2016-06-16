@@ -2,12 +2,9 @@
 namespace Bmanager\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
-use Zend\InputFilter\InputFilter;
 
 /** @ORM\Entity */
-class Company implements InputFilterAwareInterface {
+class Company {
 
 	/** 
 	*@ORM\Id
@@ -17,7 +14,7 @@ class Company implements InputFilterAwareInterface {
 	private $id;
 
 	/**
-	* @ORM\Column(type="string",length=255,nullable=true)
+	* @ORM\Column(type="string",length=255)
 	*/
 	private $nickName;
 
@@ -32,7 +29,7 @@ class Company implements InputFilterAwareInterface {
 	private $cnpj;
 
 	/**
-	* @ORM\Column(type="string",length=255)
+	* @ORM\Column(type="string",length=255,nullable=true)
 	*/
 	private $ie;
 
@@ -81,7 +78,7 @@ class Company implements InputFilterAwareInterface {
 	*/
 	private $phone;
 
-	public function __contruct($nickName,$companyName,$cnpj,$im,$street,$number,$neighborhood,$city,$state,$cep,$phone,$email) {
+	public function __construct($nickName,$companyName,$cnpj,$im,$street,$number,$neighborhood,$city,$state,$cep,$phone,$email) {
 		$this->nickName = $nickName;
 		$this->companyName = $companyName;
 		$this->cnpj = $cnpj;
@@ -105,12 +102,24 @@ class Company implements InputFilterAwareInterface {
 		return $this->nickName;
 	}
 
+	public function setNickName($nickName) {
+		$this->nickName = $nickName;
+	}
+
 	public function getCompanyName() {
 		return $this->companyName;
 	}
 
+	public function setCompanyName($companyName) {
+		$this->companyName = $companyName;
+	}
+
 	public function getCnpj() {
 		return $this->cnpj;
+	}
+
+	public function setCnpj($cnpj) {
+		$this->cnpj = $cnpj;
 	}
 
 	public function getIe() {
@@ -125,63 +134,72 @@ class Company implements InputFilterAwareInterface {
 		return $this->im;
 	}
 
+	public function setIm($im) {
+		$this->im = $im;
+	}
+
 	public function getStreet() {
 		return $this->street;
+	}
+
+	public function setStreet($street) {
+		$this->street = $street;
 	}
 
 	public function getNumber() {
 		return $this->number;
 	}
 
+	public function setNumber($number) {
+		$this->number = $number;
+	}
+
 	public function getNeighborhood() {
 		return $this->neighborhood;
+	}
+
+	public function setNeighborhood($neighborhood) {
+		$this->neighborhood = $neighborhood;
 	}
 
 	public function getCity() {
 		return $this->city;
 	}
 
+	public function setCity($city) {
+		$this->city = $city;
+	}
+
 	public function getState() {
 		return $this->state;
+	}
+
+	public function setState($state) {
+		$this->state = $state;
 	}
 
 	public function getCep() {
 		return $this->cep;
 	}
 
+	public function setCep($cep) {
+		$this->cep = $cep;
+	}
+
 	public function getEmail() {
 		return $this->email;
+	}
+
+	public function setEmail($email) {
+		$this->email = $email;
 	}
 
 	public function getPhone() {
 		return $this->phone;
 	}
 
-	public function setInputFilter(InputFilterInterface $inputFilter) {
-		throw new Exception('Você não deve invocar este método');
-		
+	public function setPhone($phone) {
+		$this->phone = $phone;
 	}
-	public function getInputFilter() {
-
-		$inputFilter = new InputFilter();
-
-		$inputFilter->add([
-			'name' => 'nickName',
-			'required' => true,
-			'validators' => [
-				[
-					'name' => 'stringLength',
-					'options' => [
-						'min' => 3,
-						'max' => 100
-					]
-				],
-
-			]
-		]);
-
-		return $inputFilter;
-
-	}	
 
 }
