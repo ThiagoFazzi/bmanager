@@ -14,7 +14,7 @@
 				<label>Cliente</label>
 				<?php
 					echo $this->formInput($form->get('client'));
-					#echo $this->formElementErrors()->render($form->get('nome'));
+					echo $this->formElementErrors()->render($form->get('contact'));
 				?>
 			</div>
 			<div class="form-group col-md-6">
@@ -30,6 +30,7 @@
 				<label>Telefone</label>
 				<?php
 					echo $this->formInput($form->get('phone'));
+					echo $this->formElementErrors()->render($form->get('contact'));
 				?>
 			</div>
 
@@ -37,13 +38,15 @@
 				<label>Email</label>
 				<?php
 					echo $this->formInput($form->get('email'));
+					echo $this->formElementErrors()->render($form->get('contact'));
 				?>
 			</div>
 
 			<div class="form-group">
-				<label>Localizaão</label>
+				<label>Localização</label>
 				<?php
 					echo $this->formTextarea($form->get('location'));
+					echo $this->formElementErrors()->render($form->get('contact'));
 				?>
 			</div>
 
@@ -51,6 +54,7 @@
 				<label>Cep</label>
 				<?php
 					echo $this->formInput($form->get('cep'));
+					echo $this->formElementErrors()->render($form->get('contact'));
 				?>
 			</div>
 
@@ -58,6 +62,7 @@
 				<label>Serviço</label>
 				<?php
 					echo $this->formInput($form->get('service'));
+					echo $this->formElementErrors()->render($form->get('contact'));
 				?>
 			</div>
 
@@ -65,6 +70,7 @@
 				<label>Descrição</label>
 				<?php
 					echo $this->formTextarea($form->get('description'));
+					echo $this->formElementErrors()->render($form->get('contact'));
 				?>
 			</div>
 

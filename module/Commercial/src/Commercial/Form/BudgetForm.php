@@ -7,7 +7,7 @@ use Zend\Form\Element;
 class BudgetForm extends Form {
 
 	public function __construct(){
-		parent::__construct('formProduto');
+		parent::__construct('formBudget');
 		
 		// campo do nome
 		$this->add([
@@ -43,9 +43,6 @@ class BudgetForm extends Form {
 		$this->add(array(
 			'type' =>'Email',
 			'name' =>'email',
-			'options' => array(
-				'label' => 'Endereço de email',
-			),
 			'attributes' => array(
 				'class' => 'form-control',
 			)
@@ -64,7 +61,7 @@ class BudgetForm extends Form {
 		]);
 
 
-		// campo do nome
+		# field cep
 		$this->add([
 			'type' =>'Text',
 			'name' =>'cep',

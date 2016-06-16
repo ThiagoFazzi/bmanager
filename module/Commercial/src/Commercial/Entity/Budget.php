@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilter;
+use Zend\Form\Email;
+use Zend\Form\Form;
 
 /** @ORM\Entity */
 Class Budget implements InputFilterAwareInterface {
@@ -14,7 +16,7 @@ Class Budget implements InputFilterAwareInterface {
 	/**
 	*@ORM\Id
 	*@ORM\GeneratedValue(strategy= "AUTO")
-	*@ORM\COlumn(type="integer")	
+	*@ORM\Column(type="integer")	
 	*/
 	private $id;
 
@@ -188,19 +190,124 @@ Class Budget implements InputFilterAwareInterface {
 	public function getInputFilter() {
 		$inputFilter = new InputFilter();
 
-		$inputFilter->add([
-			'name' => 'contact',
-			'requered' => 'true',
-			'validators' => [
-				[
-					'name' => 'StringLength',
-					'options' =>[
-						'min' => 3,
-						'max' => 100
+		$inputFilter->add(
+			[
+				'name' => 'client',
+				'requered' => 'true',
+				'validators' => [
+					[
+						'name' => 'StringLength',
+						'options' =>[
+							'min' => 3,
+							'max' => 80,
+						]
+					]
+				]
+			],  		
+
+		
+			[
+				'name' => 'contact',
+				'requered' => 'true',
+				'validators' => [
+					[
+						'name' => 'StringLength',
+						'options' =>[
+							'min' => 3,
+							'max' => 100
+						]
+					]
+				]
+			],
+
+		 
+
+
+			[
+				'name' => 'phone',
+				'requered' => 'false',
+				'filters' => [
+					[
+						'name' => 'Int',
+					]
+				],
+				'validators' => [
+					[
+						'name' => 'Zend\Validator\Between',
+						'options' =>[
+							'min' => 10,
+							'max' => 12
+						]
+					]
+				]
+			],
+
+
+			[
+				'name' => 'location',
+				'requered' => 'true',
+				'validators' => [
+					[
+						'name' => 'StringLength',
+						'options' =>[
+							'min' => 3,
+							'max' => 100
+						]
+					]
+				]
+			],	
+
+
+			[
+				'name' => 'cep',
+				'requered' => 'false',
+				'filters' => [
+					[
+						'name' => 'Int',
+					]
+				],
+				'validators' => [
+					[
+						'name' => 'Zend\Validator\Between',
+						'options' =>[
+							'min' => 8,
+							'max' => 9
+						]
+					]
+				]
+			],	
+
+			[
+				'name' => 'service',
+				'requered' => 'true',
+				'validators' => [
+					[
+						'name' => 'StringLength',
+						'options' =>[
+							'min' => 3,
+							'max' => 150
+						]
+					]
+				]
+			], 
+
+			[
+				'name' => 'description',
+				'requered' => 'true',
+				'validators' => [
+					[
+						'name' => 'StringLength',
+						'options' =>[
+							'min' => 3,
+							'max' => 200
+						]
 					]
 				]
 			]
-		]);  
+
+		); 
+
+
 
 		return $inputFilter;
 	}
