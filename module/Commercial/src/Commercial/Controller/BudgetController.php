@@ -35,6 +35,8 @@ class BudgetController extends AbstractActionController {
 			return $this->redirect()->toUrl('/User/index');
 		}
 
+		$form = new BudgetForm();
+
 		if($this->request->isPost()){
 
 			$client = $this->request->getPost('client');
@@ -49,9 +51,9 @@ class BudgetController extends AbstractActionController {
 			$budget = new Budget($contact, $email, $location, $service, $description);
 
 			$budget->setClient($client);
-			$budget->setPhone($phone);
+			$budget->setPhone($phone);   
 			$budget->setCep($cep);
-			#$budget->setGeoLocation();
+			$budget->setGeoLocation('null');
 
 
 			$form->setInputFilter($budget->getInputFilter());
@@ -73,7 +75,7 @@ class BudgetController extends AbstractActionController {
 
 		}
 
-		$form = new BudgetForm();
+		
 		return new ViewModel(['form' => $form]);
 
 	}	
@@ -106,15 +108,10 @@ class BudgetController extends AbstractActionController {
 
 			}
 
-		
 
 		$view_params = ['budget'=>$budget];
 		return new ViewModel($view_params);
 	}
-
-
-
-
 
 	public function updateAction(){
 
@@ -124,6 +121,8 @@ class BudgetController extends AbstractActionController {
 		if(is_null($id)){
 			$id = $this->request->getPost('id');
 		}
+
+		$form = new BudgetForm();
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 		$budgetRepository = $entityManager->getRepository('Commercial\Entity\Budget');
@@ -149,7 +148,7 @@ class BudgetController extends AbstractActionController {
 
 		}
 
-		$form = new BudgetForm();
+		
 
 		$view_params = array(
 			'form' => $form,
