@@ -20,7 +20,7 @@ return array(
 						'action' => 'index'
 					)
 				)
-			)
+			),
 			/*'produtos' => array(
 				'type' => 'Segment',
 				'options' => array(

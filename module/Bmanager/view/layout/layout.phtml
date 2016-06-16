@@ -9,13 +9,15 @@
 		->prependStylesheet($this->basePath('css/bootstrap.css'))
 		->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'));
 
-		#echo $this->headScript()
-		#->prependFile($this->basePath('js/jQuery.js'))
-		#->prependFile($this->basePath('js/bootstrap.js'));
+		echo $this->headScript()
+		->appendFile($this->basePath('js/jQuery.js'))
+		->appendFile($this->basePath('js/bootstrap.min.js'));
 
 	?>
+	<!--<script type="text/javascript" src="../../js/jQuery.js"></script>
+	<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jQuery.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>-->
 </head>
 <body>
 	<header>
