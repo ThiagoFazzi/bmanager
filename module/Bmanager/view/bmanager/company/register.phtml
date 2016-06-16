@@ -1,0 +1,139 @@
+<div class="row">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="panel panel-primary">
+		<!--<h1 class="alert alert-info">Empresas</h1>-->
+			<div class=" h2 panel-heading">Cadastro de Empresas</div>
+			<div class="panel-body">
+
+				<?php
+				 	echo $this->form()->openTag($form);
+				?>
+
+				<div class="row">
+					<div class="form-group col-lg-5">
+						<label>Nome</label>
+						<?php
+							echo $this->formInput($form->get('nickName'));
+						?>
+						<div class="text-danger"><?php  echo $this->formElementErrors()->render($form->get('nickName')); ?></div>
+						
+
+					</div>
+
+					<div class="form-group col-lg-7">
+						<label>Razão Social</label>
+						<?php
+							echo $this->formInput($form->get('companyName'));
+							echo $this->formElementErrors()->render($form->get('companyName'));
+						?>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-lg-4">
+						<label>CNPJ</label>
+						<?php
+							echo $this->formInput($form->get('cnpj'));
+							echo $this->formElementErrors()->render($form->get('cnpj'));
+						?>
+					</div>
+
+					<div class="form-group col-lg-4">
+						<label>Inscrição Estadual</label>
+						<?php
+							echo $this->formInput($form->get('ie'));
+							echo $this->formElementErrors()->render($form->get('ie'));
+						?>
+					</div>
+
+					<div class="form-group col-lg-4">
+						<label>Inscrição Municipal</label>
+						<?php
+							echo $this->formInput($form->get('im'));
+							echo $this->formElementErrors()->render($form->get('im'));
+						?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-lg-10">
+						<label>Endereço</label>
+						<?php
+							echo $this->formInput($form->get('street'));
+							echo $this->formElementErrors()->render($form->get('street'));
+						?>
+					</div>
+
+					<div class="form-group col-lg-2">
+						<label>Número</label>
+						<?php
+							echo $this->formInput($form->get('number'));
+							echo $this->formElementErrors()->render($form->get('number'));
+						?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-5 form-group ">
+						<label>Bairro</label>
+						<?php
+							echo $this->formInput($form->get('neighborhood'));
+							echo $this->formElementErrors()->render($form->get('neighborhood'));
+						?>
+					</div>
+
+					<div class="col-lg-5 form-group">
+						<label>Cidade</label>
+						<?php
+							echo $this->formInput($form->get('city'));
+							echo $this->formElementErrors()->render($form->get('city'));
+						?>
+					</div>
+
+					<div class="col-lg-2 form-group">
+						<label>Estado</label>
+						<?php
+							echo $this->formInput($form->get('state'));
+							echo $this->formElementErrors()->render($form->get('state'));
+						?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 form-group">
+						<label>Cep</label>
+						<?php
+							echo $this->formInput($form->get('cep'));
+							echo $this->formElementErrors()->render($form->get('cep'));
+						?>
+					</div>
+
+					<div class="col-lg-4 form-group">
+						<label>Telefone</label>
+						<?php
+							echo $this->formInput($form->get('phone'));
+							echo $this->formElementErrors()->render($form->get('phone'));
+						?>
+					</div>
+
+					<div class="col-lg-4 form-group">
+						<label>Email</label>
+						<?php
+							echo $this->formInput($form->get('email'));
+						?>
+						<div class="text-danger"><?php echo $this->formElementErrors()->render($form->get('email')); ?></div>
+					</div>
+				</div>
+
+				<?php
+					echo $this->formRow($form->get('csrf'));
+				?>
+
+				<input type="submit" value="Salvar" class="btn btn-primary">
+				<a href="<?= $this->url('application',['controller'=>'Company','action'=>'Index']); ?>" class="btn btn-primary">Cancelar</a>
+
+				<?php 
+					echo $this->form()->closeTag();
+				?>
+
+			</div>
+		</div>
+	</div>
+</div>

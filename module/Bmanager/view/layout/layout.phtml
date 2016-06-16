@@ -9,11 +9,13 @@
 		->prependStylesheet($this->basePath('css/bootstrap.css'))
 		->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'));
 
-		echo $this->headScript()
-		->prependFile($this->basePath('js/jquery.min.js'))
-		->prependFile($this->basePath('js/bootstrap.min.js'));
+		#echo $this->headScript()
+		#->prependFile($this->basePath('js/jQuery.js'))
+		#->prependFile($this->basePath('js/bootstrap.js'));
 
 	?>
+	<script type="text/javascript" src="js/jQuery.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </head>
 <body>
 	<header>
@@ -23,19 +25,65 @@
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="<?= $this->url('application',['controller' => 'Index','action' => 'index']) ?>">Dashboard</a></li>
-				<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'index']) ?>">Financeiro</a></li>
-				<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'payment']) ?>">Pagamentos</a></li>
-				<li><a href="<?= $this->url('commercial',['controller' => 'Budget','action' => 'index']) ?>">Orçamentos</a></li>
-				<li><a href="<?= $this->url('application',['controller' => 'Company','action' => 'index']) ?>">Listar Empresas</a></li>
-				<li><a href="<?= $this->url('application',['controller' => 'User','action' => 'logout']) ?>">Logout</a></li>
+
+				<li>
+					<a id="AdministracaoLabel" data-target="administracaoLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						Administração
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="<?= $this->url('application',['controller' => 'Company','action' => 'index']) ?>">Listar Empresas</a></li>
+						<li><a href="<?= $this->url('application',['controller' => 'Company','action' => 'register']) ?>">Cadastrar Empresas</a></li>
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a id="financeiroLabel" data-target="financeiroLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						Financeiro
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">						
+						<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'payment']) ?>">Pagamentos</a></li>
+						<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'index']) ?>">Contas</a></li>
+						<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'index']) ?>">Centro de Custo</a></li>
+						<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'index']) ?>">Despesas</a></li>
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a id="commercialLabel" data-target="commercialLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Comercial
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="<?= $this->url('commercial',['controller' => 'Budget','action' => 'index']) ?>">Listar Orçamentos</a></li>
+						<li><a href="<?= $this->url('commercial',['controller' => 'Budget','action' => 'register']) ?>">Cadastrar Orçamento</a></li>
+					</ul>
+				</li>
+
+				<li>
+					<a href="<?= $this->url('application',['controller' => 'User','action' => 'logout']) ?>">
+						<span class="glyphicon glyphicon-user" title="Logout"></span>
+					</a>
+				</li>
 			</ul>
 		</nav>
 	</header>
 	<main class="conteudo">
-		<?php
-			$this->flashHelper();
-			echo $this->content;
-		?>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+				<?php
+					$this->flashHelper();
+				?>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<?php
+				echo $this->content;
+			?>
+		</div>
 	</main>
 	<footer class="rodape navbar navbar-fixed-bottom">
 		&copy b.Manager - Todos os direitos reservados by <a>Xtwo System Solutions</a> 
