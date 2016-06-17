@@ -1,7 +1,15 @@
-<h1>Remover Orçamento</h1>
-<form method="post" action="<?= $this->url('commercial', ['controller'=>'Budget','action'=>'delete']) ?>">
-	<input type="hidden" value="<?= $budget->getId(); ?>" name ="id">
-	<p class="alert alert-danger" >Deseja realmente remover o orçamento <strong><?= $budget->getContact(); ?></strong> da lista?</p>
-	<input type="submit" value="Sim" class="btn btn-danger"></input>
-	<a href="<?= $this->url('commercial',['controller'=>'Budget','action'=>'Index']); ?>" class="btn btn-primary">Não</a>
-</form>
+<div class="row">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="panel panel-primary">
+			<div class=" h2 panel-heading">Cadastro de Orçamento</div>
+			<div class="panel-body">
+				<form method="post" action="<?= $this->url('commercial', ['controller'=>'Budget','action'=>'delete']) ?>">
+					<input type="hidden" value="<?= $budget->getId(); ?>" name ="id">
+					<p class="alert alert-danger" >Deseja realmente remover o orçamento <strong><?= $budget->getContact(); ?></strong> da lista?</p>
+					<input type="submit" value="Sim" class="btn btn-danger"></input>
+					<a href="<?= $this->url('commercial',['controller'=>'Budget','action'=>'Index']); ?>" class="btn btn-primary">Não</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div> 
