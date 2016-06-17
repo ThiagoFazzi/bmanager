@@ -1,0 +1,41 @@
+<div class="row">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="panel panel-primary">
+			<div class=" h2 panel-heading">Cadastro de Banco</div>
+			<div class="panel-body">
+
+				<?php
+				 	echo $this->form()->openTag($form);
+				?>
+
+				<div class="form-group">
+					<label>Nome</label>
+					<?php
+						echo $this->formInput($form->get('name')->setValue($bank->getName()));
+					?>
+					<div class="text-danger"><?php  echo $this->formElementErrors()->render($form->get('name')); ?></div>
+				</div>
+
+				<div class="form-group">
+					<label>Número</label>
+					<?php
+						echo $this->formInput($form->get('number')->setValue($bank->getNumber()));
+						echo $this->formElementErrors()->render($form->get('number'));
+					?>
+				</div>
+
+				<?php
+					echo $this->formRow($form->get('csrf'));
+				?>
+
+				<input type="submit" value="Salvar" class="btn btn-primary">
+				<a href="<?= $this->url('finance',['controller'=>'Bank','action'=>'Index']); ?>" class="btn btn-primary">Cancelar</a>
+
+				<?php 
+					echo $this->form()->closeTag();
+				?>
+
+			</div>
+		</div>
+	</div>
+</div>

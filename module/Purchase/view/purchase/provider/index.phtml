@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="panel panel-primary">
+		<!--<h1 class="alert alert-info">Empresas</h1>-->
+			<div class=" h2 panel-heading">Fornecedores</div>
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th class="text-primary">Nome</th>
+							<th class="text-primary">Cnpj</th>
+							<th class="text-primary">Inscrição Municipal</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php 
+							foreach ($providers as $p) {
+						?>
+						<tr>
+							<td><?= $p->getNickName(); ?></td>
+							<td><?= $p->getCnpj(); ?></td>
+							<td><?= $p->getIm(); ?></td>
+							<td>
+								<a href="<?= $this->url('purchase', ['controller' => 'Provider','action' =>'delete', 'id' => $p->getId()]) ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash" title="Excluir"></span></a>
+								<a href="<?= $this->url('purchase', ['controller' => 'Provider','action' =>'update', 'id' => $p->getId()]) ?>" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" title="Alterar"></span></a>
+							</td>
+						</tr>
+
+						<?php
+							}
+						 ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

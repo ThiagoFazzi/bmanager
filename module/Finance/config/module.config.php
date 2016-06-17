@@ -41,6 +41,8 @@ return array(
 	'controllers' => array(
 		'invokables' => array(
 			'Finance\Controller\Index' => 'Finance\Controller\IndexController',
+			'Finance\Controller\Bank' => 'Finance\Controller\BankController',
+			'Finance\Controller\Agency' => 'Finance\Controller\AgencyController',
 		)
 	),
 	'view_manager' => array(

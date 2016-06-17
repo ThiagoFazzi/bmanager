@@ -2,7 +2,7 @@
 	<div class="col-lg-6 col-lg-offset-3">
 		<div class="panel panel-primary">
 		<!--<h1 class="alert alert-info">Empresas</h1>-->
-			<div class=" h2 panel-heading">Cadastro de Empresa</div>
+			<div class=" h2 panel-heading">Cadastro de Fornecedor</div>
 			<div class="panel-body">
 
 				<?php
@@ -127,7 +127,7 @@
 				?>
 
 				<input type="submit" value="Salvar" class="btn btn-primary">
-				<a href="<?= $this->url('application',['controller'=>'Company','action'=>'Index']); ?>" class="btn btn-primary">Cancelar</a>
+				<a href="<?= $this->url('purchase',['controller'=>'Provider','action'=>'Index']); ?>" class="btn btn-primary">Cancelar</a>
 
 				<?php 
 					echo $this->form()->closeTag();
