@@ -45,10 +45,12 @@
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">						
-						<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'payment']) ?>">Pagamentos</a></li>
-						<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'index']) ?>">Contas</a></li>
+						<li><a href="<?= $this->url('finance',['controller' => 'Bank','action' => 'index']) ?>">Bancos</a></li>
+						<li><a href="<?= $this->url('finance',['controller' => 'Bank','action' => 'register']) ?>">Cadastrar Banco</a></li>
+						<li><a href="<?= $this->url('finance',['controller' => 'Agency','action' => 'index']) ?>">Agências</a></li>
+						<li><a href="<?= $this->url('finance',['controller' => 'Agency','action' => 'register']) ?>">Cadastrar Agência</a></li>
 						<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'index']) ?>">Centro de Custo</a></li>
-						<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'index']) ?>">Despesas</a></li>
+						<li><a href="<?= $this->url('finance',['controller' => 'Index','action' => 'index']) ?>">Despesas</a></li>						
 					</ul>
 				</li>
 
@@ -60,6 +62,17 @@
 					<ul class="dropdown-menu">
 						<li><a href="<?= $this->url('commercial',['controller' => 'Budget','action' => 'index']) ?>">Listar Orçamentos</a></li>
 						<li><a href="<?= $this->url('commercial',['controller' => 'Budget','action' => 'register']) ?>">Cadastrar Orçamento</a></li>
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a id="purchaseLabel" data-target="purchaseLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Compras
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="<?= $this->url('purchase',['controller' => 'Provider','action' => 'index']) ?>">Fornecedores</a></li>
+						<li><a href="<?= $this->url('purchase',['controller' => 'Provider','action' => 'register']) ?>">Cadastrar Fornecedor</a></li>
 					</ul>
 				</li>
 
