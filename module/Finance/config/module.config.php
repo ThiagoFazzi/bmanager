@@ -43,6 +43,7 @@ return array(
 			'Finance\Controller\Index' => 'Finance\Controller\IndexController',
 			'Finance\Controller\Bank' => 'Finance\Controller\BankController',
 			'Finance\Controller\Agency' => 'Finance\Controller\AgencyController',
+			'Finance\Controller\Agency' => 'Finance\Controller\AccountTypeController',
 		)
 	),
 	'view_manager' => array(
