@@ -36,13 +36,24 @@ class AccountTypeController extends AbstractActionController {
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 		
-		$form = new AccountTypeForm($entityManager);
+		$form = new AccountTypeForm();
 
 		if($this->request->isPost()){
 			
 			$name = $this->request->getPost('name');
 
-			$agency = new AccountType($name);
+			$accountType = new AccountType($name);
+
+			$accountTypeValidator = new AccountTypeValidator();
+
+			$form->setInputFilter($accountTypeValidator->getInputFilter());
+			$form->setData($this->request->getPost());
+
+			if($form->isValid()){
+				
+				$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+				$entityManager->persist($accountType);
+				$entityManager->flush();			
 
 	
 
