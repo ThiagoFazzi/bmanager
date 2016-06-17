@@ -1,90 +1,90 @@
 <div class="row">
-	<div class="col-md-3"></div>
-	<div class="col-md-6">
-		<h1>Cadastro de Orçamentos</h1>
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="panel panel-primary">
+			<div class=" h2 panel-heading">Cadastro de Orçamento</div>
+			<div class="panel-body">
 
-		 <?php
-		 	echo $this->form()->openTag($form);
-		 ?>
+				<?php
+					echo $this->form()->openTag($form);
+				?>
 
-		<!--<form method="post" action="\Index\cadastrar">-->
-		<div class="row">
-			
-			<div class="form-group col-md-6">
-				<label>Cliente</label>
-				<?php
-					echo $this->formInput($form->get('client'));
-					echo $this->formElementErrors()->render($form->get('contact'));
-				?>
-			</div>
-			<div class="form-group col-md-6">
-				<label>Contato</label>
-				<?php
-					echo $this->formInput($form->get('contact'));
-					echo $this->formElementErrors()->render($form->get('contact'));
-				?>
-			</div>
-
-		</div>
-			<div class="form-group">
-				<label>Telefone</label>
-				<?php
-					echo $this->formInput($form->get('phone'));
-					echo $this->formElementErrors()->render($form->get('contact'));
-				?>
-			</div>
-
-			<div class="form-group">
-				<label>Email</label>
-				<?php
-					echo $this->formInput($form->get('email'));
-					echo $this->formElementErrors()->render($form->get('contact'));
-				?>
-			</div>
-
-			<div class="form-group">
-				<label>Localização</label>
-				<?php
-					echo $this->formTextarea($form->get('location'));
-					echo $this->formElementErrors()->render($form->get('contact'));
-				?>
-			</div>
-
-			<div class="form-group">
-				<label>Cep</label>
-				<?php
-					echo $this->formInput($form->get('cep'));
-					echo $this->formElementErrors()->render($form->get('contact'));
-				?>
-			</div>
+				<div class="row">
+					<div class="form-group col-lg-6">
+						<label>Cliente</label>
+						<?php
+							echo $this->formInput($form->get('client'));
+							echo $this->formElementErrors()->render($form->get('contact'));
+						?>
+					</div>
+					<div class="form-group col-lg-6">
+						<label>Contato</label>
+						<?php
+							echo $this->formInput($form->get('contact'));
+							echo $this->formElementErrors()->render($form->get('contact'));
+						?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-lg-6">
+						<label>Telefone</label>
+						<?php
+							echo $this->formInput($form->get('phone'));
+							echo $this->formElementErrors()->render($form->get('contact'));
+						?>
+					</div>
+					<div class="form-group col-lg-6">
+						<label>Email</label>
+						<?php
+							echo $this->formInput($form->get('email'));
+							echo $this->formElementErrors()->render($form->get('contact'));
+						?>
+					</div>
+				</div>	
 
 				<div class="form-group">
-				<label>Serviço</label>
-				<?php
-					echo $this->formInput($form->get('service'));
-					echo $this->formElementErrors()->render($form->get('contact'));
-				?>
-			</div>
+					<label>Localização</label>
+					<?php
+						echo $this->formTextarea($form->get('location'));
+						echo $this->formElementErrors()->render($form->get('contact'));
+					?>
+				</div>
 
 				<div class="form-group">
-				<label>Descrição</label>
+					<label>Cep</label>
+					<?php
+						echo $this->formInput($form->get('cep'));
+						echo $this->formElementErrors()->render($form->get('contact'));
+					?>
+				</div>
+
+					<div class="form-group">
+					<label>Serviço</label>
+					<?php
+						echo $this->formInput($form->get('service'));
+						echo $this->formElementErrors()->render($form->get('contact'));
+					?>
+				</div>
+
+					<div class="form-group">
+					<label>Descrição</label>
+					<?php
+						echo $this->formTextarea($form->get('description'));
+						echo $this->formElementErrors()->render($form->get('contact'));
+					?>
+				</div>
+
 				<?php
-					echo $this->formTextarea($form->get('description'));
-					echo $this->formElementErrors()->render($form->get('contact'));
+					echo $this->formRow($form->get('csrf'));
 				?>
-			</div>
 
-			<?php
-				echo $this->formRow($form->get('csrf'));
-			?>
-
-			<div class="form-group">
 				<input type="submit" value="Salvar" class="btn btn-primary">
+				<a href="<?= $this->url('commercial',['controller'=>'Budget','action'=>'Index']); ?>" class="btn btn-primary">Cancelar</a>
+
+				<?php 
+					echo $this->form()->closeTag();
+				?>
 			</div>
-			<?php 
-				echo $this->form()->closeTag();
-			?>
-		</form>
+		</div>
 	</div>
-	<div class="col-md-3"></div>
 </div>
+

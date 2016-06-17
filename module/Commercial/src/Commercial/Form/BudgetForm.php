@@ -55,7 +55,8 @@ class BudgetForm extends Form {
 			'type' => 'Textarea',
 			'name' => 'location',
 			'attributes' => [
-				'class' => 'form-control'
+				'class' => 'form-control',
+				'rows' => '3'
 
 			]
 		]);
@@ -86,7 +87,8 @@ class BudgetForm extends Form {
 			'type' => 'Textarea',
 			'name' => 'description',
 			'attributes' => [
-				'class' => 'form-control'
+				'class' => 'form-control',
+				'rows' => '5'
 
 			]
 		]);
