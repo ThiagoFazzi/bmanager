@@ -29,6 +29,12 @@ class Agency {
 	*/
 	private $bank;
 
+	/**
+	* @ORM\OneToMany(targetEntity="Finance\Entity\account", mappedBy="agency")
+	*/
+	private $account;
+
+
 	public function __construct($name,$number) {
 		$this->name = $name;
 		$this->number = $number;
