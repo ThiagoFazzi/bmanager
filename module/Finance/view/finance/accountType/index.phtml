@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="panel panel-primary">
+			<div class=" h2 panel-heading">Agências</div>
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th class="text-primary">Nome</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php 
+							foreach ($accounts as $a) {
+						?>
+						<tr>
+							<td><?= $a->getName(); ?></td>
+							<td>
+								<a href="<?= $this->url('finance', ['controller' => 'AccountType','action' =>'delete', 'id' => $a->getId()]) ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash" title="Excluir"></span></a>
+								<a href="<?= $this->url('finance', ['controller' => 'AccountType','action' =>'update', 'id' => $a->getId()]) ?>" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" title="Alterar"></span></a>
+							</td>
+						</tr>
+
+						<?php
+							}
+						 ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
