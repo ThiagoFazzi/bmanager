@@ -78,6 +78,11 @@ class Company {
 	*/
 	private $phone;
 
+	/**
+	* @ORM\OneToMany(targetEntity="Finance\Entity\Account", mappedBy="company")
+	*/
+	private $account;
+
 	public function __construct($nickName,$companyName,$cnpj,$im,$street,$number,$neighborhood,$city,$state,$cep,$phone,$email) {
 		$this->nickName = $nickName;
 		$this->companyName = $companyName;
