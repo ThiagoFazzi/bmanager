@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManager;
 class AccountTypeForm extends Form {
 
 
-	public function __construct(EntityManager $entityManager) {
+	public function __construct() {
 
 		parent::__construct('formAccountType');
 
