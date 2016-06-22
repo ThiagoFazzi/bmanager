@@ -3,7 +3,9 @@ namespace Finance\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\Entity **/
+/** 
+ * @ORM\Entity
+ */
 class Agency {
 
 	/**
@@ -24,13 +26,13 @@ class Agency {
 	private $number;
 
 	/**
-	* @ORM\ManyToOne(targetEntity="Finance\Entity\Bank",inversedBy="agency")
+	* @ORM\ManyToOne(targetEntity="Finance\Entity\Bank",cascade={"all"},inversedBy="agency")
 	* @ORM\JoinColumn(name="bank_id",referencedColumnName="id", nullable=false)
 	*/
 	private $bank;
 
 	/**
-	* @ORM\OneToMany(targetEntity="Finance\Entity\account", mappedBy="agency")
+	* @ORM\OneToMany(targetEntity="Finance\Entity\Account", mappedBy="agency")
 	*/
 	private $account;
 

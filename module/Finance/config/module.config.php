@@ -44,11 +44,15 @@ return array(
 			'Finance\Controller\Bank' => 'Finance\Controller\BankController',
 			'Finance\Controller\Agency' => 'Finance\Controller\AgencyController',
 			'Finance\Controller\AccountType' => 'Finance\Controller\AccountTypeController',
+			'Finance\Controller\Account' => 'Finance\Controller\AccountController',
 		)
 	),
 	'view_manager' => array(
 		'template_path_stack' => array(
 			__DIR__ . '/../view/',
+		),
+		'strategies' => array(
+			'ViewJsonStrategy',
 		),
 	),
 	'doctrine' => array(

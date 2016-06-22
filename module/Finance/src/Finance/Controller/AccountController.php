@@ -3,13 +3,18 @@ namespace Finance\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Finance\Entity\Account;
+use Finance\Form\AccountForm;
+use Finance\Validator\AccountValidator;
+use Zend\View\Model\JsonModel;
+use Bmanager\Entity\Company;
 use Finance\Entity\Agency;
-use Finance\Form\AgencyForm;
-use Finance\Validator\AgencyValidator;
+use Finance\Entity\AccountType;
+use Zend\Json\Json;
 
-class AgencyController extends AbstractActionController {
+class AccountController extends AbstractActionController {
 
-	# Method for list all agencys
+	# Method for list all accounts
 	public function indexAction() {
 
 		if(!$user = $this->identity()) {
@@ -17,17 +22,17 @@ class AgencyController extends AbstractActionController {
 		}
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		$agencyRepository = $entityManager->getRepository('Finance\Entity\Agency');
-		$agencys = $agencyRepository->findALL();
+		$accountRepository = $entityManager->getRepository('Finance\Entity\Account');
+		$accounts = $accountRepository->findALL();
 
 		$view_params = array(
-			'agencys' => $agencys,
+			'accounts' => $accounts,
 		);
 		return new ViewModel($view_params);
 
 	}
 
-	# Method for insert agency
+	# Method for insert a new account
 	public function registerAction() {
 	
 		if(!$user = $this->identity()) {
@@ -35,40 +40,81 @@ class AgencyController extends AbstractActionController {
 		}
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		$companyRepository = $entityManager->getRepository('Bmanager\Entity\Company');
 		$bankRepository = $entityManager->getRepository('Finance\Entity\Bank');
+		$agencyRepository = $entityManager->getRepository('Finance\Entity\Agency');
+		$accountTypeRepository = $entityManager->getRepository('Finance\Entity\AccountType');
 		
-		$form = new AgencyForm($entityManager);
+		$form = new AccountForm($entityManager);
 
 		if($this->request->isPost()){
 			
-			$name = $this->request->getPost('name');
 			$number = $this->request->getPost('number');
+		
+			$company = $companyRepository->find($this->request->getPost('company'));
 			$bank = $bankRepository->find($this->request->getPost('bank'));
+			$agency = $agencyRepository->find($this->request->getPost('agency'));
+			$accountType = $accountTypeRepository->find($this->request->getPost('accountType'));
 
-			$agency = new Agency($name,$number);
+			//echo "<pre>";
+			//var_dump($agency->getBank()->getName());
+			//echo "</pre>";
+
 			$agency->setBank($bank);
 
-			$agencyValidator = new AgencyValidator();
+			//echo "<pre>";
+			//echo print_r($agency);
+			//echo "</pre>";
 
-			$form->setInputFilter($agencyValidator->getInputFilter());
+
+			$account = new Account($number);
+			$account->setCompany($company);
+			$account->setAgency($agency);
+			$account->setAccountType($accountType);
+
+			$accountValidator = new AccountValidator();
+
+			$form->setInputFilter($accountValidator->getInputFilter());
 			$form->setData($this->request->getPost());
 
 			if($form->isValid()){
 				
-				$entityManager->persist($agency);
+				$entityManager->persist($account);
 				$entityManager->flush();
 
-				$this->flashMessenger()->addSuccessMessage('Agência cadastrada com sucesso!!');
+				$this->flashMessenger()->addSuccessMessage('Conta cadastrada com sucesso!!');
 
-				return $this->redirect()->toRoute('finance', array('controller' => 'Agency', 'action' => 'index'));
+				return $this->redirect()->toRoute('finance', array('controller' => 'Account', 'action' => 'index'));
 			}
 		}
 
 		return new ViewModel(['form' => $form]);
-	}	
+	}
+
+	public function findAgencyByBankAction() {
+
+		$id = $this->params()->fromRoute('id');
+		if(is_null($id)){
+			$id = $this->params()->fromPost('id');
+		}
+
+		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		$agencyRepository = $entityManager->getRepository('Finance\Entity\Agency');
+		$agencys = $agencyRepository->findBy(array('bank' => $id));
+
+  		foreach($agencys as $key => $value) {   
+    		$array[] = array(
+        		'id' => $value->getId(),
+        		'name' => $value->getName(),
+    		);
+ 		 }
+
+		return new JsonModel($array);
+
+	}
 
 	# Method for update agency
-	public function updateAction(){
+	/*public function updateAction(){
 
 		$id = $this->params()->fromRoute('id');
 		
@@ -134,8 +180,6 @@ class AgencyController extends AbstractActionController {
 
 		$view_params = ['agency'=>$agency];
 		return new ViewModel($view_params);
-	}
-
-
+	}*/
 
 }
