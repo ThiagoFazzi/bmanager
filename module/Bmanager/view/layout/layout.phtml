@@ -12,12 +12,31 @@
 		echo $this->headScript()
 		->appendFile($this->basePath('js/jQuery.js'))
 		->appendFile($this->basePath('js/bootstrap.min.js'));
-
 	?>
-	<!--<script type="text/javascript" src="../../js/jQuery.js"></script>
-	<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/jQuery.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>-->
+	<script type="text/javascript">
+		function getAgencyByBank(){
+				var id = $("#bank").val();
+				$.ajax({
+					type 		: 'POST',
+					url 		: 'findAgencyByBank/' + id,
+					//id 			: id,
+					dataType 	: 'json'
+					//encode 		: true
+				})
+				.done(function(data) {
+					var options = "";
+	            	$.each(data, function(key, value){
+	               		options += '<option value="' + value.id + '">' + value.name + '</option>';
+	            	});
+	            	$("#agency").html(options); 
+				})
+				.fail(function(data) {
+					console.log('Error che: ');
+					console.log(data); 
+				});
+				event.preventDefault();
+		};
+	</script>
 </head>
 <body>
 	<header>
@@ -50,7 +69,9 @@
 						<li><a href="<?= $this->url('finance',['controller' => 'Agency','action' => 'index']) ?>">Agências</a></li>
 						<li><a href="<?= $this->url('finance',['controller' => 'Agency','action' => 'register']) ?>">Cadastrar Agência</a></li>
 						<li><a href="<?= $this->url('finance',['controller' => 'AccountType','action' => 'index']) ?>">Tipos de Conta</a></li>
-						<li><a href="<?= $this->url('finance',['controller' => 'AccountType','action' => 'register']) ?>">Cadastrar Tipo de Conta</a></li>						
+						<li><a href="<?= $this->url('finance',['controller' => 'AccountType','action' => 'register']) ?>">Cadastrar Tipos de Conta</a></li>
+						<li><a href="<?= $this->url('finance',['controller' => 'Account','action' => 'index']) ?>">Contas</a></li>
+						<li><a href="<?= $this->url('finance',['controller' => 'Account','action' => 'register']) ?>">Cadastrar Conta</a></li>						
 					</ul>
 				</li>
 

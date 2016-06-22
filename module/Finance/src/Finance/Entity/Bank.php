@@ -2,19 +2,23 @@
 namespace Finance\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
-/** @ORM\Entity **/
+/**  
+ * @ORM\Entity
+ * @ORM\Table(name="Bank")
+ */
 class Bank {
 
 	/**
 	* @ORM\Id
-	* @ORM\GeneratedValue(strategy="AUTO")
 	* @ORM\Column(type="integer")
+	* @ORM\GeneratedValue(strategy="AUTO")
 	*/
 	private $id;
 
 	/**
-	* @ORM\column(type="string",length=255)
+	* @ORM\column(type="string",length=255, unique=true)
 	*/
 	private $name;
 
@@ -24,7 +28,7 @@ class Bank {
 	private $number;
 
 	/**
-	* @ORM\OneToMany(targetEntity="Finance\Entity\Agency", mappedBy="bank")
+	* @ORM\OneToMany(targetEntity="Finance\Entity\Agency", cascade={"all"}, mappedBy="bank", fetch="EAGER")
 	*/
 	private $agency;
 

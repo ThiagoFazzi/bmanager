@@ -1,0 +1,38 @@
+<div class="row">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="panel panel-primary">
+			<div class=" h2 panel-heading">Contas</div>
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th class="text-primary">Empresa</th>
+							<th class="text-primary">Agência</th>
+							<th class="text-primary">Conta</th>
+							<th class="text-primary">Tipo de Conta</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php 
+							foreach ($accounts as $a) {
+						?>
+						<tr>
+							<td><?= $a->getCompany()->getNickName();  ?></td>							
+							<td><?= $a->getAgency()->getName();  ?></td>
+							<td><?= $a->getNumber(); ?></td>
+							<td><?= $a->getAccountType()->getName();  ?></td>
+							<td>
+								<a href="<?= $this->url('finance', ['controller' => 'Account','action' =>'delete', 'id' => $a->getId()]) ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash" title="Excluir"></span></a>
+								<a href="<?= $this->url('finance', ['controller' => 'Account','action' =>'update', 'id' => $a->getId()]) ?>" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" title="Alterar"></span></a>
+							</td>
+						</tr>
+
+						<?php
+							}
+						 ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

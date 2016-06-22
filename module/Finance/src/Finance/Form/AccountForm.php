@@ -28,9 +28,20 @@ class AccountForm extends Form {
 			]
 		]);
 
+		$this->add([
+			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			'name' => 'bank',
+			'options' => [
+				'object_manager' => $entityManager,
+				'target_class' => 'Finance\Entity\Bank',
+				'property' => 'name',
+				'empty_option' => 'selecione um banco',
+			],
+			'attributes' => [
+				'class' => 'form-control',
+			]
+		]);
 
-
-		#field select for agency
 		$this->add([
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'name' => 'agency',
@@ -38,14 +49,46 @@ class AccountForm extends Form {
 				'object_manager' => $entityManager,
 				'target_class' => 'Finance\Entity\Agency',
 				'property' => 'name',
-				'empty_option' => 'selecione uma agência'
+				'empty_option' => 'selecione uma agência',
 			],
 			'attributes' => [
-				'class' => 'form-control'
+				'class' => 'form-control',
+				'id' => 'bank',
 			]
 		]);
 
-		# field number for agency
+		#field select for bank
+		/*$this->add([
+			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			'name' => 'bank',
+			'options' => [
+				'object_manager' => $entityManager,
+				'target_class' => 'Finance\Entity\Bank',
+				'property' => 'name',
+				'empty_option' => 'selecione um banco',
+			],
+			'attributes' => [
+				'class' => 'form-control',
+				'id' => 'bank',
+				'onChange' => 'getAgencyByBank()'
+				
+			]
+		]);*/
+
+		/*#field select for agency
+		$this->add([
+			'type' => 'Select',
+			'name' => 'agency',
+			'options' => [
+				'empty_option' => 'selecione uma agência',
+			],
+			'attributes' => [
+				'class' => 'form-control',
+				'id' => 'agency'
+			],
+		]);*/
+
+		# field number for number account
 		$this->add([
 			'type' => 'Text',
 			'name' => 'number',
@@ -71,11 +114,7 @@ class AccountForm extends Form {
 
 		$this->add(new Element\Csrf('csrf'));
 
-
-
-
-
-	}
+	} 
 
 
 }

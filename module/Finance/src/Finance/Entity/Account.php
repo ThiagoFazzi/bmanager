@@ -2,6 +2,9 @@
 namespace Finance\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Bmanager\Entity\Company;
+use Finance\Entity\Agency;
+use Finance\Entity\AccountType;
 
 /** @ORM\Entity **/
 class Account {
@@ -36,8 +39,7 @@ class Account {
 	*/
 	private $company;
 
-	public function __construct($name,$number) {
-		$this->name = $name;
+	public function __construct($number) {
 		$this->number = $number;
 	}
 
@@ -65,7 +67,7 @@ class Account {
 		return $this->accountType;
 	}
 
-	public function setAccounType(AccountType $accountType) {
+	public function setAccountType(AccountType $accountType) {
 		$this->accountType = $accountType;
 	}
 
