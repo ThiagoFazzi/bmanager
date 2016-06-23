@@ -28,7 +28,7 @@ class AccountForm extends Form {
 			]
 		]);
 
-		$this->add([
+		/*$this->add([
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'name' => 'bank',
 			'options' => [
@@ -55,10 +55,10 @@ class AccountForm extends Form {
 				'class' => 'form-control',
 				'id' => 'bank',
 			]
-		]);
+		]);*/
 
 		#field select for bank
-		/*$this->add([
+		$this->add([
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'name' => 'bank',
 			'options' => [
@@ -73,9 +73,9 @@ class AccountForm extends Form {
 				'onChange' => 'getAgencyByBank()'
 				
 			]
-		]);*/
+		]);
 
-		/*#field select for agency
+		#field select for agency
 		$this->add([
 			'type' => 'Select',
 			'name' => 'agency',
@@ -86,7 +86,7 @@ class AccountForm extends Form {
 				'class' => 'form-control',
 				'id' => 'agency'
 			],
-		]);*/
+		]);
 
 		# field number for number account
 		$this->add([

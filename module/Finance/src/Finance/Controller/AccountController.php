@@ -11,6 +11,7 @@ use Bmanager\Entity\Company;
 use Finance\Entity\Agency;
 use Finance\Entity\AccountType;
 use Zend\Json\Json;
+use Doctrine\ORM\Query;
 
 class AccountController extends AbstractActionController {
 
@@ -99,17 +100,13 @@ class AccountController extends AbstractActionController {
 		}
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		$agencyRepository = $entityManager->getRepository('Finance\Entity\Agency');
-		$agencys = $agencyRepository->findBy(array('bank' => $id));
+		
+		$queryBuilder = $entityManager->createQueryBuilder();
+		$queryBuilder->select('a')->from('Finance\Entity\Agency', 'a');
 
-  		foreach($agencys as $key => $value) {   
-    		$array[] = array(
-        		'id' => $value->getId(),
-        		'name' => $value->getName(),
-    		);
- 		 }
+		$results = $queryBuilder->getQuery()->getResult(\Doctrine\ORM\AbstractQuery::HYDRATE_ARRAY);
 
-		return new JsonModel($array);
+		return new JsonModel($results);
 
 	}
 

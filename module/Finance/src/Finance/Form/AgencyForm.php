@@ -13,8 +13,22 @@ class AgencyForm extends Form {
 
 		parent::__construct('formAgency');
 
-		#field select for bank
+		#field select for agency
 		$this->add([
+			'type' => 'Select',
+			'name' => 'bank',
+			'options' => [
+				'empty_option' => 'selecione um banco',
+			],
+			'attributes' => [
+				'class' => 'form-control',
+				'id' => 'bank',
+				'onClick' => 'getBank()'
+			],
+		]);
+
+		#field select for bank
+		/*$this->add([
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'name' => 'bank',
 			'options' => [
@@ -26,7 +40,7 @@ class AgencyForm extends Form {
 			'attributes' => [
 				'class' => 'form-control'
 			]
-		]);
+		]);*/
 
 		# field name for agency
 		$this->add([

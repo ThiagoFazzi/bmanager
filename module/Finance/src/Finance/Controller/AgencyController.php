@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Finance\Entity\Agency;
 use Finance\Form\AgencyForm;
 use Finance\Validator\AgencyValidator;
+use Zend\View\Model\JsonModel;
 
 class AgencyController extends AbstractActionController {
 
@@ -134,6 +135,19 @@ class AgencyController extends AbstractActionController {
 
 		$view_params = ['agency'=>$agency];
 		return new ViewModel($view_params);
+	}
+
+	public function findBankAction() {
+
+		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		
+		$queryBuilder = $entityManager->createQueryBuilder();
+		$queryBuilder->select('b')->from('Finance\Entity\Bank', 'b');
+
+		$results = $queryBuilder->getQuery()->getResult(\Doctrine\ORM\AbstractQuery::HYDRATE_ARRAY);
+
+		return new JsonModel($results);
+
 	}
 
 
