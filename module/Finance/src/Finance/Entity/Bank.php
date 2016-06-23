@@ -28,7 +28,7 @@ class Bank {
 	private $number;
 
 	/**
-	* @ORM\OneToMany(targetEntity="Finance\Entity\Agency", cascade={"all"}, mappedBy="bank", fetch="EAGER")
+	* @ORM\OneToMany(targetEntity="Finance\Entity\Agency", cascade={"all"}, mappedBy="bank")
 	*/
 	private $agency;
 
