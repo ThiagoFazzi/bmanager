@@ -76,7 +76,7 @@ class AccountTypeController extends AbstractActionController {
 		}	
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		$agencyRepository = $entityManager->getRepository('Finance\Entity\AccountType');
+		$accountTypeRepository = $entityManager->getRepository('Finance\Entity\AccountType');
 		$accountType = $accountTypeRepository->find($id);
 
 		$form = new AccountTypeForm($entityManager);
