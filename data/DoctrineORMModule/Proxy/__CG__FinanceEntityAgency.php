@@ -36,7 +36,7 @@ class Agency extends \Finance\Entity\Agency implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Agency extends \Finance\Entity\Agency implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Finance\\Entity\\Agency' . "\0" . 'id', '' . "\0" . 'Finance\\Entity\\Agency' . "\0" . 'name', '' . "\0" . 'Finance\\Entity\\Agency' . "\0" . 'number', '' . "\0" . 'Finance\\Entity\\Agency' . "\0" . 'bank', '' . "\0" . 'Finance\\Entity\\Agency' . "\0" . 'account');
+            return ['__isInitialized__', 'id', 'name', 'number', 'bank', 'account'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Finance\\Entity\\Agency' . "\0" . 'id', '' . "\0" . 'Finance\\Entity\\Agency' . "\0" . 'name', '' . "\0" . 'Finance\\Entity\\Agency' . "\0" . 'number', '' . "\0" . 'Finance\\Entity\\Agency' . "\0" . 'bank', '' . "\0" . 'Finance\\Entity\\Agency' . "\0" . 'account');
+        return ['__isInitialized__', 'id', 'name', 'number', 'bank', 'account'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Agency extends \Finance\Entity\Agency implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Agency extends \Finance\Entity\Agency implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Agency extends \Finance\Entity\Agency implements \Doctrine\ORM\Proxy\Proxy
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,9 +194,20 @@ class Agency extends \Finance\Entity\Agency implements \Doctrine\ORM\Proxy\Proxy
     public function getName()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', []);
 
         return parent::getName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAgencia()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAgencia', []);
+
+        return parent::getAgencia();
     }
 
     /**
@@ -205,7 +216,7 @@ class Agency extends \Finance\Entity\Agency implements \Doctrine\ORM\Proxy\Proxy
     public function setName($name)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', array($name));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', [$name]);
 
         return parent::setName($name);
     }
@@ -216,7 +227,7 @@ class Agency extends \Finance\Entity\Agency implements \Doctrine\ORM\Proxy\Proxy
     public function getNumber()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNumber', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNumber', []);
 
         return parent::getNumber();
     }
@@ -227,7 +238,7 @@ class Agency extends \Finance\Entity\Agency implements \Doctrine\ORM\Proxy\Proxy
     public function setNumber($number)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNumber', array($number));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNumber', [$number]);
 
         return parent::setNumber($number);
     }
@@ -238,7 +249,7 @@ class Agency extends \Finance\Entity\Agency implements \Doctrine\ORM\Proxy\Proxy
     public function getBank()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getBank', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getBank', []);
 
         return parent::getBank();
     }
@@ -249,7 +260,7 @@ class Agency extends \Finance\Entity\Agency implements \Doctrine\ORM\Proxy\Proxy
     public function setBank(\Finance\Entity\Bank $bank)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setBank', array($bank));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setBank', [$bank]);
 
         return parent::setBank($bank);
     }

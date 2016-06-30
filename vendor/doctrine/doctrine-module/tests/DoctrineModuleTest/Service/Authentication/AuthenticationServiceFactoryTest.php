@@ -30,7 +30,7 @@ class AuthenticationServiceFactoryTest extends BaseTestCase
     public function testWillInstantiateFromFQCN()
     {
 
-        $name = 'testFactory';
+        $name    = 'testFactory';
         $factory = new AuthenticationServiceFactory($name);
 
         $objectManager =  $this->getMock('Doctrine\Common\Persistence\ObjectManager');
@@ -50,6 +50,10 @@ class AuthenticationServiceFactoryTest extends BaseTestCase
                     ),
                 ),
             )
+        );
+        $serviceManager->setInvokableClass(
+            'DoctrineModule\Authentication\Storage\Session',
+            'Zend\Authentication\Storage\Session'
         );
         $serviceManager->setFactory('doctrine.authenticationadapter.' . $name, new AdapterFactory($name));
         $serviceManager->setFactory('doctrine.authenticationstorage.' . $name, new StorageFactory($name));

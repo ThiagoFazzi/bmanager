@@ -2,8 +2,8 @@
 /**
  * Zend Framework (http://framework.zend.com/)
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @link      http://github.com/zendframework/zend-log for the canonical source repository
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -12,7 +12,10 @@ namespace Zend\Log\Writer;
 use Traversable;
 use Zend\Log\Exception;
 use Zend\Log\Filter;
+use Zend\Log\FilterPluginManager;
 use Zend\Log\Formatter;
+use Zend\Log\FormatterPluginManager;
+use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\ErrorHandler;
 
 abstract class AbstractWriter implements WriterInterface
@@ -36,7 +39,7 @@ abstract class AbstractWriter implements WriterInterface
      *
      * @var Filter\FilterInterface[]
      */
-    protected $filters = array();
+    protected $filters = [];
 
     /**
      * Formats the log message before writing
@@ -76,6 +79,14 @@ abstract class AbstractWriter implements WriterInterface
         }
 
         if (is_array($options)) {
+            if (isset($options['filter_manager'])) {
+                $this->setFilterPluginManager($options['filter_manager']);
+            }
+
+            if (isset($options['formatter_manager'])) {
+                $this->setFormatterPluginManager($options['formatter_manager']);
+            }
+
             if (isset($options['filters'])) {
                 $filters = $options['filters'];
                 if (is_int($filters) || is_string($filters) || $filters instanceof Filter\FilterInterface) {
@@ -148,7 +159,7 @@ abstract class AbstractWriter implements WriterInterface
     public function getFilterPluginManager()
     {
         if (null === $this->filterPlugins) {
-            $this->setFilterPluginManager(new FilterPluginManager());
+            $this->setFilterPluginManager(new FilterPluginManager(new ServiceManager()));
         }
         return $this->filterPlugins;
     }
@@ -197,7 +208,7 @@ abstract class AbstractWriter implements WriterInterface
     public function getFormatterPluginManager()
     {
         if (null === $this->formatterPlugins) {
-            $this->setFormatterPluginManager(new FormatterPluginManager());
+            $this->setFormatterPluginManager(new FormatterPluginManager(new ServiceManager()));
         }
         return $this->formatterPlugins;
     }

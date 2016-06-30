@@ -2,6 +2,7 @@
 namespace Finance\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 use Finance\Entity\Agency;
 use Finance\Form\AgencyForm;
@@ -9,6 +10,20 @@ use Finance\Validator\AgencyValidator;
 use Zend\View\Model\JsonModel;
 
 class AgencyController extends AbstractActionController {
+
+	protected $serviceLocator = null;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+        return $this;
+    }
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
+
+
 
 	# Method for list all agencys
 	public function indexAction() {
@@ -37,8 +52,12 @@ class AgencyController extends AbstractActionController {
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 		$bankRepository = $entityManager->getRepository('Finance\Entity\Bank');
+		$banks = $bankRepository->getFindBank();
+
+
+
+		$form = new AgencyForm($banks);
 		
-		$form = new AgencyForm($entityManager);
 
 		if($this->request->isPost()){
 			
@@ -49,9 +68,15 @@ class AgencyController extends AbstractActionController {
 			$agency = new Agency($name,$number);
 			$agency->setBank($bank);
 
+
+
 			$agencyValidator = new AgencyValidator();
 
+
+
 			$form->setInputFilter($agencyValidator->getInputFilter());
+
+
 			$form->setData($this->request->getPost());
 
 			if($form->isValid()){
@@ -60,6 +85,10 @@ class AgencyController extends AbstractActionController {
 				$entityManager->flush();
 
 				$this->flashMessenger()->addSuccessMessage('Agência cadastrada com sucesso!!');
+
+				return $this->redirect()->toRoute('finance', array('controller' => 'Agency', 'action' => 'index'));
+			} else {
+				$this->flashMessenger()->addSuccessMessage('Erro!!');
 
 				return $this->redirect()->toRoute('finance', array('controller' => 'Agency', 'action' => 'index'));
 			}
@@ -79,16 +108,18 @@ class AgencyController extends AbstractActionController {
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 		$agencyRepository = $entityManager->getRepository('Finance\Entity\Agency');
-		$bankRepository = $entityManager->getRepository('Finance\Entity\Bank');
 		$agency = $agencyRepository->find($id);
 
-		$form = new AgencyForm($entityManager);
+		$bankRepository = $entityManager->getRepository('Finance\Entity\Bank');
+		$banks = $bankRepository->getFindBank();
+
+
+		$form = new AgencyForm($banks);
 
 		if($this->request->isPost()){
 			$agency->setName($this->request->getPost('name'));
 			$agency->setNumber($this->request->getPost('number'));
 			$bank = $bankRepository->find($this->request->getPost('bank'));
-
 			$agency->setBank($bank);
 
 			$entityManager->persist($agency);
@@ -137,16 +168,19 @@ class AgencyController extends AbstractActionController {
 		return new ViewModel($view_params);
 	}
 
-	public function findBankAction() {
+	public function findAgencyByBankAction() {
+
+		$id = $this->params()->fromRoute('id');
+		if(is_null($id)){
+			$id = $this->params()->fromPost('id');
+		}
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		
-		$queryBuilder = $entityManager->createQueryBuilder();
-		$queryBuilder->select('b')->from('Finance\Entity\Bank', 'b');
 
-		$results = $queryBuilder->getQuery()->getResult(\Doctrine\ORM\AbstractQuery::HYDRATE_ARRAY);
+		$agencyRepository = $entityManager->getRepository('Finance\Entity\Agency');
+		$agencys = $agencyRepository->getFindAgencyByBank($id);
 
-		return new JsonModel($results);
+		return new JsonModel($agencys);
 
 	}
 

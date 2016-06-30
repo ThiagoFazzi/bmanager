@@ -18,6 +18,11 @@
  */
 return array(
     'doctrine' => array(
+        'configuration' => array(
+            'orm_default' => array(
+                'default_repository_class_name' => 'DoctrineORMModuleTest\Assets\RepositoryClass',
+            ),
+        ),
         'driver' => array(
             'DoctrineORMModuleTest\Assets\Entity' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
@@ -35,7 +40,8 @@ return array(
         'entity_resolver' => array(
             'orm_default' => array(
                 'resolvers' => array(
-                    'DoctrineORMModuleTest\Assets\Entity\TargetInterface' => 'DoctrineORMModuleTest\Assets\Entity\TargetEntity',
+                    'DoctrineORMModuleTest\Assets\Entity\TargetInterface'
+                        => 'DoctrineORMModuleTest\Assets\Entity\TargetEntity',
                 ),
             ),
         ),
@@ -47,6 +53,11 @@ return array(
                 'params' => array(
                     'memory' => true,
                 ),
+            ),
+        ),
+        'migrations_configuration' => array(
+            'orm_default' => array(
+                'directory' => 'build/',
             ),
         ),
     ),

@@ -36,7 +36,7 @@ class AccountType extends \Finance\Entity\AccountType implements \Doctrine\ORM\P
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class AccountType extends \Finance\Entity\AccountType implements \Doctrine\ORM\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'id', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'name', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'account');
+            return ['__isInitialized__', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'id', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'name', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'account'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'id', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'name', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'account');
+        return ['__isInitialized__', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'id', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'name', '' . "\0" . 'Finance\\Entity\\AccountType' . "\0" . 'account'];
     }
 
     /**
@@ -97,7 +97,7 @@ class AccountType extends \Finance\Entity\AccountType implements \Doctrine\ORM\P
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class AccountType extends \Finance\Entity\AccountType implements \Doctrine\ORM\P
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class AccountType extends \Finance\Entity\AccountType implements \Doctrine\ORM\P
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class AccountType extends \Finance\Entity\AccountType implements \Doctrine\ORM\P
     public function getName()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', []);
 
         return parent::getName();
     }
@@ -205,7 +205,7 @@ class AccountType extends \Finance\Entity\AccountType implements \Doctrine\ORM\P
     public function setName($name)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', array($name));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', [$name]);
 
         return parent::setName($name);
     }

@@ -11,52 +11,10 @@
 
 		echo $this->headScript()
 		->appendFile($this->basePath('js/jQuery.js'))
+		->appendFile($this->basePath('js/script/script.js'))
 		->appendFile($this->basePath('js/bootstrap.min.js'));
 	?>
-	<script type="text/javascript">
-		function getAgencyByBank(){
-				var id = $("#bank").val();
-				$.ajax({
-					type 		: 'POST',
-					url 		: 'findAgencyByBank/' + id,
-					//id 			: id,
-					dataType 	: 'json'
-					//encode 		: true
-				})
-				.done(function(data) {
-					var options = "";
-	            	$.each(data, function(key, value){
-	               		options += '<option value="' + value.id + '">' + value.name + '</option>';
-	            	});
-	            	$("#agency").html(options); 
-				})
-				.fail(function(data) {
-					console.log('Error che: ');
-					console.log(data); 
-				});
-				event.preventDefault();
-		};
 
-		function getBank(){
-				$.ajax({
-					type 		: 'POST',
-					url 		: 'findBank/',
-					dataType 	: 'json'
-				})
-				.done(function(data) {
-					var options = "";
-	            	$.each(data, function(key, value){
-	               		options += '<option value="' + value.id + '">' + value.name + '</option>';
-	            	});
-	            	$("#bank").html(options); 
-				})
-				.fail(function(data) {
-					console.log('Error che: ');
-					console.log(data); 
-				});
-				event.preventDefault();
-		};
-	</script>
 </head>
 <body>
 	<header>

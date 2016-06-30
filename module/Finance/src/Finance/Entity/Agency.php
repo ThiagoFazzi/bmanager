@@ -4,7 +4,8 @@ namespace Finance\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /** 
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Finance\Entity\Repository\AgencyRepository")
+ * @ORM\Table(name="Agency")
  */
 class Agency {
 
@@ -13,28 +14,28 @@ class Agency {
 	* @ORM\GeneratedValue(strategy="AUTO")
 	* @ORM\Column(type="integer")
 	*/
-	private $id;
+	protected $id;
 
 	/**
 	* @ORM\column(type="string",length=255)
 	*/
-	private $name;
+	protected $name;
 
 	/**
 	* @ORM\column(type="string",length=5)
 	*/
-	private $number;
+	protected $number;
 
 	/**
-	* @ORM\ManyToOne(targetEntity="Finance\Entity\Bank",cascade={"all"},inversedBy="agency")
-	* @ORM\JoinColumn(name="bank_id",referencedColumnName="id", nullable=false)
+	* @ORM\ManyToOne(targetEntity="Finance\Entity\Bank", cascade={"persist"}, inversedBy="agency")
+	* @ORM\JoinColumn(name="bank_id",referencedColumnName="id")
 	*/
-	private $bank;
+	protected $bank;
 
 	/**
 	* @ORM\OneToMany(targetEntity="Finance\Entity\Account", mappedBy="agency")
 	*/
-	private $account;
+	protected $account;
 
 
 	public function __construct($name,$number) {
@@ -48,8 +49,13 @@ class Agency {
 
 	public function getName() {
 		return $this->name;
-	}
 
+	}
+	
+	public function getAgencia() {
+		return $this->name();
+	}
+	
 	public function setName($name) {
 		$this->name = $name;
 	}

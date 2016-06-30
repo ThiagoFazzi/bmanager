@@ -3,15 +3,15 @@ namespace Finance\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Element;
-use Doctrine\ORM\EntityManager;
+use Finance\Entity\Bank;
 
 
 class AgencyForm extends Form {
 
 
-	public function __construct(EntityManager $entityManager) {
+	public function __construct($banks) {
 
-		parent::__construct('formAgency');
+		parent::__construct('form-agency');
 
 		#field select for agency
 		$this->add([
@@ -19,28 +19,13 @@ class AgencyForm extends Form {
 			'name' => 'bank',
 			'options' => [
 				'empty_option' => 'selecione um banco',
+				'value_options' => $banks,
 			],
 			'attributes' => [
 				'class' => 'form-control',
-				'id' => 'bank',
-				'onClick' => 'getBank()'
+				'id' => 'bank'
 			],
 		]);
-
-		#field select for bank
-		/*$this->add([
-			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-			'name' => 'bank',
-			'options' => [
-				'object_manager' => $entityManager,
-				'target_class' => 'Finance\Entity\Bank',
-				'property' => 'name',
-				'empty_option' => 'selecione um banco'
-			],
-			'attributes' => [
-				'class' => 'form-control'
-			]
-		]);*/
 
 		# field name for agency
 		$this->add([
@@ -64,11 +49,5 @@ class AgencyForm extends Form {
 
 		$this->add(new Element\Csrf('csrf'));
 
-
-
-
-
 	}
-
-
 }

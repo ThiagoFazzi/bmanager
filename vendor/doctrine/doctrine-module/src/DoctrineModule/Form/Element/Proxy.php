@@ -19,16 +19,19 @@
 
 namespace DoctrineModule\Form\Element;
 
-use RuntimeException;
-use ReflectionMethod;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ObjectManager;
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
+use InvalidArgumentException;
+use ReflectionMethod;
+use RuntimeException;
+use Traversable;
+use Zend\Stdlib\Guard\GuardUtils;
 
 class Proxy implements ObjectManagerAwareInterface
 {
     /**
-     * @var array
+     * @var array|Traversable
      */
     protected $objects;
 
@@ -51,9 +54,19 @@ class Proxy implements ObjectManagerAwareInterface
      * @var
      */
     protected $property;
-    
+
     /**
-     * @var
+     * @var array
+     */
+    protected $option_attributes = array();
+
+    /**
+     * @var callable $labelGenerator A callable used to create a label based on an item in the collection an Entity
+     */
+    protected $labelGenerator;
+
+    /**
+     * @var bool|null
      */
     protected $isMethod;
 
@@ -61,6 +74,26 @@ class Proxy implements ObjectManagerAwareInterface
      * @var ObjectManager
      */
     protected $objectManager;
+
+    /**
+     * @var bool
+     */
+    protected $displayEmptyItem = false;
+
+    /**
+     * @var string
+     */
+    protected $emptyItemLabel = '';
+
+    /**
+     * @var string|null
+     */
+    protected $optgroupIdentifier;
+
+    /**
+     * @var string|null
+     */
+    protected $optgroupDefault;
 
     public function setOptions($options)
     {
@@ -75,13 +108,37 @@ class Proxy implements ObjectManagerAwareInterface
         if (isset($options['property'])) {
             $this->setProperty($options['property']);
         }
-        
+
+        if (isset($options['label_generator'])) {
+            $this->setLabelGenerator($options['label_generator']);
+        }
+
         if (isset($options['find_method'])) {
             $this->setFindMethod($options['find_method']);
         }
-        
+
         if (isset($options['is_method'])) {
             $this->setIsMethod($options['is_method']);
+        }
+
+        if (isset($options['display_empty_item'])) {
+            $this->setDisplayEmptyItem($options['display_empty_item']);
+        }
+
+        if (isset($options['empty_item_label'])) {
+            $this->setEmptyItemLabel($options['empty_item_label']);
+        }
+
+        if (isset($options['option_attributes'])) {
+            $this->setOptionAttributes($options['option_attributes']);
+        }
+
+        if (isset($options['optgroup_identifier'])) {
+            $this->setOptgroupIdentifier($options['optgroup_identifier']);
+        }
+
+        if (isset($options['optgroup_default'])) {
+            $this->setOptgroupDefault($options['optgroup_default']);
         }
     }
 
@@ -90,27 +147,91 @@ class Proxy implements ObjectManagerAwareInterface
         if (empty($this->valueOptions)) {
             $this->loadValueOptions();
         }
+
         return $this->valueOptions;
+    }
+
+    /**
+     * @return array|Traversable
+     */
+    public function getObjects()
+    {
+        $this->loadObjects();
+
+        return $this->objects;
+    }
+
+    /**
+     * Set the label for the empty option
+     *
+     * @param string $emptyItemLabel
+     *
+     * @return Proxy
+     */
+    public function setEmptyItemLabel($emptyItemLabel)
+    {
+        $this->emptyItemLabel = $emptyItemLabel;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmptyItemLabel()
+    {
+        return $this->emptyItemLabel;
     }
 
     /**
      * @return array
      */
-    public function getObjects()
+    public function getOptionAttributes()
     {
-        $this->loadObjects();
-        return $this->objects;
+        return $this->option_attributes;
+    }
+
+    /**
+     * @param array $option_attributes
+     */
+    public function setOptionAttributes(array $option_attributes)
+    {
+        $this->option_attributes = $option_attributes;
+    }
+
+    /**
+     * Set a flag, whether to include the empty option at the beginning or not
+     *
+     * @param boolean $displayEmptyItem
+     *
+     * @return Proxy
+     */
+    public function setDisplayEmptyItem($displayEmptyItem)
+    {
+        $this->displayEmptyItem = $displayEmptyItem;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getDisplayEmptyItem()
+    {
+        return $this->displayEmptyItem;
     }
 
     /**
      * Set the object manager
      *
-     * @param  ObjectManager  $objectManager
+     * @param  ObjectManager $objectManager
+     *
      * @return Proxy
      */
     public function setObjectManager(ObjectManager $objectManager)
     {
         $this->objectManager = $objectManager;
+
         return $this;
     }
 
@@ -127,12 +248,14 @@ class Proxy implements ObjectManagerAwareInterface
     /**
      * Set the FQCN of the target object
      *
-     * @param  string         $targetClass
+     * @param  string $targetClass
+     *
      * @return Proxy
      */
     public function setTargetClass($targetClass)
     {
         $this->targetClass = $targetClass;
+
         return $this;
     }
 
@@ -149,12 +272,14 @@ class Proxy implements ObjectManagerAwareInterface
     /**
      * Set the property to use as the label in the options
      *
-     * @param  string         $property
+     * @param  string $property
+     *
      * @return Proxy
      */
     public function setProperty($property)
     {
         $this->property = $property;
+
         return $this;
     }
 
@@ -165,35 +290,99 @@ class Proxy implements ObjectManagerAwareInterface
     {
         return $this->property;
     }
-    
+
+    /**
+     * Set the label generator callable that is responsible for generating labels for the items in the collection
+     *
+     * @param callable $callable A callable used to create a label based off of an Entity
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return void
+     */
+    public function setLabelGenerator($callable)
+    {
+        if (!is_callable($callable)) {
+            throw new InvalidArgumentException(
+                'Property "label_generator" needs to be a callable function or a \Closure'
+            );
+        }
+
+        $this->labelGenerator = $callable;
+    }
+
+    /**
+     * @return callable|null
+     */
+    public function getLabelGenerator()
+    {
+        return $this->labelGenerator;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getOptgroupIdentifier()
+    {
+        return $this->optgroupIdentifier;
+    }
+
+    /**
+     * @param string $optgroupIdentifier
+     */
+    public function setOptgroupIdentifier($optgroupIdentifier)
+    {
+        $this->optgroupIdentifier = (string) $optgroupIdentifier;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getOptgroupDefault()
+    {
+        return $this->optgroupDefault;
+    }
+
+    /**
+     * @param string $optgroupDefault
+     */
+    public function setOptgroupDefault($optgroupDefault)
+    {
+        $this->optgroupDefault = (string) $optgroupDefault;
+    }
+
     /**
      * Set if the property is a method to use as the label in the options
      *
-     * @param  boolean         $method
+     * @param  boolean $method
+     *
      * @return Proxy
      */
     public function setIsMethod($method)
     {
-    	$this->isMethod = (bool) $method;
-    	return $this;
+        $this->isMethod = (bool) $method;
+
+        return $this;
     }
-    
+
     /**
      * @return mixed
      */
     public function getIsMethod()
     {
-    	return $this->isMethod;
+        return $this->isMethod;
     }
 
     /** Set the findMethod property to specify the method to use on repository
      *
      * @param array $findMethod
+     *
      * @return Proxy
      */
     public function setFindMethod($findMethod)
     {
         $this->findMethod = $findMethod;
+
         return $this;
     }
 
@@ -208,9 +397,24 @@ class Proxy implements ObjectManagerAwareInterface
     }
 
     /**
+     * @param $targetEntity
+     *
+     * @return string|null
+     */
+    protected function generateLabel($targetEntity)
+    {
+        if (null === ($labelGenerator = $this->getLabelGenerator())) {
+            return null;
+        }
+
+        return call_user_func($labelGenerator, $targetEntity);
+    }
+
+    /**
      * @param  $value
+     *
      * @return array|mixed|object
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function getValue($value)
     {
@@ -223,10 +427,12 @@ class Proxy implements ObjectManagerAwareInterface
         }
 
         $metadata = $om->getClassMetadata($targetClass);
+
         if (is_object($value)) {
             if ($value instanceof Collection) {
                 $data = array();
-                foreach($value as $object) {
+
+                foreach ($value as $object) {
                     $values = $metadata->getIdentifierValues($object);
                     $data[] = array_shift($values);
                 }
@@ -251,6 +457,8 @@ class Proxy implements ObjectManagerAwareInterface
     /**
      * Load objects
      *
+     * @throws RuntimeException
+     * @throws Exception\InvalidRepositoryResultException
      * @return void
      */
     protected function loadObjects()
@@ -258,43 +466,67 @@ class Proxy implements ObjectManagerAwareInterface
         if (!empty($this->objects)) {
             return;
         }
-        
+
         $findMethod = (array) $this->getFindMethod();
+
         if (!$findMethod) {
-            $this->objects = $this->objectManager->getRepository($this->targetClass)->findAll();
+            $findMethodName = 'findAll';
+            $repository     = $this->objectManager->getRepository($this->targetClass);
+            $objects        = $repository->findAll();
         } else {
-            if (!isset($this->findMethod['name'])) {
+            if (!isset($findMethod['name'])) {
                 throw new RuntimeException('No method name was set');
             }
-            $findMethodName = $findMethod['name'];
-            $findMethodParams = isset($findMethod['params']) ? array_change_key_case($findMethod['params']) : null;
+            $findMethodName   = $findMethod['name'];
+            $findMethodParams = isset($findMethod['params']) ? array_change_key_case($findMethod['params']) : array();
+            $repository       = $this->objectManager->getRepository($this->targetClass);
 
-            $repository = $this->objectManager->getRepository($this->targetClass);
             if (!method_exists($repository, $findMethodName)) {
-                throw new RuntimeException(sprintf(
-                    'Method "%s" could not be found in respository "%s"',
-                    $findMethodName,
-                    get_class($repository)
-                ));
+                throw new RuntimeException(
+                    sprintf(
+                        'Method "%s" could not be found in repository "%s"',
+                        $findMethodName,
+                        get_class($repository)
+                    )
+                );
             }
 
-            $r = new ReflectionMethod($repository, $findMethodName);
+            $r    = new ReflectionMethod($repository, $findMethodName);
             $args = array();
+
             foreach ($r->getParameters() as $param) {
                 if (array_key_exists(strtolower($param->getName()), $findMethodParams)) {
                     $args[] = $findMethodParams[strtolower($param->getName())];
-                } else {
+                } elseif ($param->isDefaultValueAvailable()) {
                     $args[] = $param->getDefaultValue();
+                } elseif (!$param->isOptional()) {
+                    throw new RuntimeException(
+                        sprintf(
+                            'Required parameter "%s" with no default value for method "%s" in repository "%s"'
+                            . ' was not provided',
+                            $param->getName(),
+                            $findMethodName,
+                            get_class($repository)
+                        )
+                    );
                 }
             }
-            $this->objects = $r->invokeArgs($repository, $args);
+            $objects = $r->invokeArgs($repository, $args);
         }
+
+        GuardUtils::guardForArrayOrTraversable(
+            $objects,
+            sprintf('%s::%s() return value', get_class($repository), $findMethodName),
+            'DoctrineModule\Form\Element\Exception\InvalidRepositoryResultException'
+        );
+
+        $this->objects = $objects;
     }
 
     /**
      * Load value options
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      * @return void
      */
     protected function loadValueOptions()
@@ -307,53 +539,128 @@ class Proxy implements ObjectManagerAwareInterface
             throw new RuntimeException('No target class was set');
         }
 
-        $metadata   = $om->getClassMetadata($targetClass);
-        $identifier = $metadata->getIdentifierFieldNames();
-        $objects    = $this->getObjects();
-        $options    = array();
+        $metadata         = $om->getClassMetadata($targetClass);
+        $identifier       = $metadata->getIdentifierFieldNames();
+        $objects          = $this->getObjects();
+        $options          = array();
+        $optionAttributes = array();
 
-        if (empty($objects)) {
-            $options[''] = '';
-        } else {
-            foreach ($objects as $key => $object) {
-                if (($property = $this->property)) {
-                    if ($this->isMethod == false && !$metadata->hasField($property)) {
-                        throw new RuntimeException(sprintf(
+        if ($this->displayEmptyItem) {
+            $options[''] = $this->getEmptyItemLabel();
+        }
+
+        foreach ($objects as $key => $object) {
+            if (null !== ($generatedLabel = $this->generateLabel($object))) {
+                $label = $generatedLabel;
+            } elseif ($property = $this->property) {
+                if ($this->isMethod == false && !$metadata->hasField($property)) {
+                    throw new RuntimeException(
+                        sprintf(
                             'Property "%s" could not be found in object "%s"',
                             $property,
                             $targetClass
-                        ));
-                    }
+                        )
+                    );
+                }
 
-                    $getter = 'get' . ucfirst($property);
-                    if (!is_callable(array($object, $getter))) {
-                        throw new RuntimeException(sprintf(
-                            'Method "%s::%s" is not callable',
-                            $this->targetClass,
-                            $getter
-                        ));
-                    }
+                $getter = 'get' . ucfirst($property);
 
-                    $label = $object->{$getter}();
-                } else {
-                    if (!is_callable(array($object, '__toString'))) {
-                        throw new RuntimeException(sprintf(
-                            '%s must have a "__toString()" method defined if you have not set a property or method to use.',
+                if (!is_callable(array($object, $getter))) {
+                    throw new RuntimeException(
+                        sprintf('Method "%s::%s" is not callable', $this->targetClass, $getter)
+                    );
+                }
+
+                $label = $object->{$getter}();
+            } else {
+                if (!is_callable(array($object, '__toString'))) {
+                    throw new RuntimeException(
+                        sprintf(
+                            '%s must have a "__toString()" method defined if you have not set a property'
+                            . ' or method to use.',
                             $targetClass
-                        ));
-                    }
-
-                    $label = (string) $object;
+                        )
+                    );
                 }
 
-                if (count($identifier) > 1) {
-                    $value = $key;
-                } else {
-                    $value = current($metadata->getIdentifierValues($object));
-                }
-
-                $options[] = array('label' => $label, 'value' => $value);
+                $label = (string) $object;
             }
+
+            if (count($identifier) > 1) {
+                $value = $key;
+            } else {
+                $value = current($metadata->getIdentifierValues($object));
+            }
+
+            foreach ($this->getOptionAttributes() as $optionKey => $optionValue) {
+                if (is_string($optionValue)) {
+                    $optionAttributes[$optionKey] = $optionValue;
+
+                    continue;
+                }
+
+                if (is_callable($optionValue)) {
+                    $callableValue                = call_user_func($optionValue, $object);
+                    $optionAttributes[$optionKey] = (string) $callableValue;
+
+                    continue;
+                }
+
+                throw new RuntimeException(
+                    sprintf(
+                        'Parameter "option_attributes" expects an array of key => value where value is of type'
+                        . '"string" or "callable". Value of type "%s" found.',
+                        gettype($optionValue)
+                    )
+                );
+            }
+
+            // If no optgroup_identifier has been configured, apply default handling and continue
+            if (is_null($this->getOptgroupIdentifier())) {
+                $options[] = array('label' => $label, 'value' => $value, 'attributes' => $optionAttributes);
+
+                continue;
+            }
+
+            // optgroup_identifier found, handle grouping
+            $optgroupGetter = 'get' . ucfirst($this->getOptgroupIdentifier());
+
+            if (!is_callable(array($object, $optgroupGetter))) {
+                throw new RuntimeException(
+                    sprintf('Method "%s::%s" is not callable', $this->targetClass, $optgroupGetter)
+                );
+            }
+
+            $optgroup = $object->{$optgroupGetter}();
+
+            // optgroup_identifier contains a valid group-name. Handle default grouping.
+            if (false === is_null($optgroup) && trim($optgroup) !== '') {
+                $options[$optgroup]['label']     = $optgroup;
+                $options[$optgroup]['options'][] = array(
+                    'label'      => $label,
+                    'value'      => $value,
+                    'attributes' => $optionAttributes
+                );
+
+                continue;
+            }
+
+            $optgroupDefault = $this->getOptgroupDefault();
+
+            // No optgroup_default has been provided. Line up without a group
+            if (is_null($optgroupDefault)) {
+                $options[] = array('label' => $label, 'value' => $value, 'attributes' => $optionAttributes);
+
+                continue;
+            }
+
+            // Line up entry with optgroup_default
+            $options[$optgroupDefault]['label']     = $optgroupDefault;
+            $options[$optgroupDefault]['options'][] = array(
+                'label'      => $label,
+                'value'      => $value,
+                'attributes' => $optionAttributes
+            );
         }
 
         $this->valueOptions = $options;

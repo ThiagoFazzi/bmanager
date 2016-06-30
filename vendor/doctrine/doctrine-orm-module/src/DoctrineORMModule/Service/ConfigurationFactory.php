@@ -19,6 +19,10 @@
 
 namespace DoctrineORMModule\Service;
 
+use Doctrine\ORM\Cache\CacheConfiguration;
+use Doctrine\ORM\Cache\DefaultCacheFactory;
+use Doctrine\ORM\Cache\RegionsConfiguration;
+use Doctrine\ORM\Mapping\EntityListenerResolver;
 use DoctrineORMModule\Service\DBALConfigurationFactory as DoctrineConfigurationFactory;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\Exception\InvalidArgumentException;
@@ -42,6 +46,8 @@ class ConfigurationFactory extends DoctrineConfigurationFactory
         $config->setCustomStringFunctions($options->getStringFunctions());
         $config->setCustomNumericFunctions($options->getNumericFunctions());
 
+        $config->setClassMetadataFactoryName($options->getClassMetadataFactoryName());
+
         foreach ($options->getNamedQueries() as $name => $query) {
             $config->addNamedQuery($name, $query);
         }
@@ -50,7 +56,7 @@ class ConfigurationFactory extends DoctrineConfigurationFactory
             $config->addNamedNativeQuery($name, $query['sql'], new $query['rsm']);
         }
 
-        foreach ($options->getCustomHydrationModes() AS $modeName => $hydrator) {
+        foreach ($options->getCustomHydrationModes() as $modeName => $hydrator) {
             $config->addCustomHydrationMode($modeName, $hydrator);
         }
 
@@ -61,21 +67,75 @@ class ConfigurationFactory extends DoctrineConfigurationFactory
         $config->setMetadataCacheImpl($serviceLocator->get($options->getMetadataCache()));
         $config->setQueryCacheImpl($serviceLocator->get($options->getQueryCache()));
         $config->setResultCacheImpl($serviceLocator->get($options->getResultCache()));
+        $config->setHydrationCacheImpl($serviceLocator->get($options->getHydrationCache()));
         $config->setMetadataDriverImpl($serviceLocator->get($options->getDriver()));
 
         if ($namingStrategy = $options->getNamingStrategy()) {
             if (is_string($namingStrategy)) {
                 if (!$serviceLocator->has($namingStrategy)) {
-                    throw new InvalidArgumentException(sprintf(
-                        'Naming strategy "%s" not found',
-                        $namingStrategy
-                    ));
+                    throw new InvalidArgumentException(sprintf('Naming strategy "%s" not found', $namingStrategy));
                 }
 
                 $config->setNamingStrategy($serviceLocator->get($namingStrategy));
             } else {
                 $config->setNamingStrategy($namingStrategy);
             }
+        }
+
+        if ($repositoryFactory = $options->getRepositoryFactory()) {
+            if (is_string($repositoryFactory)) {
+                if (!$serviceLocator->has($repositoryFactory)) {
+                    throw new InvalidArgumentException(
+                        sprintf('Repository factory "%s" not found', $repositoryFactory)
+                    );
+                }
+
+                $config->setRepositoryFactory($serviceLocator->get($repositoryFactory));
+            } else {
+                $config->setRepositoryFactory($repositoryFactory);
+            }
+        }
+
+        if ($entityListenerResolver = $options->getEntityListenerResolver()) {
+            if ($entityListenerResolver instanceof EntityListenerResolver) {
+                $config->setEntityListenerResolver($entityListenerResolver);
+            } else {
+                $config->setEntityListenerResolver($serviceLocator->get($entityListenerResolver));
+            }
+        }
+
+        $secondLevelCache = $options->getSecondLevelCache();
+
+        if ($secondLevelCache->isEnabled()) {
+            $regionsConfig = new RegionsConfiguration(
+                $secondLevelCache->getDefaultLifetime(),
+                $secondLevelCache->getDefaultLockLifetime()
+            );
+
+            foreach ($secondLevelCache->getRegions() as $regionName => $regionConfig) {
+                if (isset($regionConfig['lifetime'])) {
+                    $regionsConfig->setLifetime($regionName, $regionConfig['lifetime']);
+                }
+
+                if (isset($regionConfig['lock_lifetime'])) {
+                    $regionsConfig->setLockLifetime($regionName, $regionConfig['lock_lifetime']);
+                }
+            }
+
+            // As Second Level Cache caches queries results, we reuse the result cache impl
+            $cacheFactory = new DefaultCacheFactory($regionsConfig, $config->getResultCacheImpl());
+            $cacheFactory->setFileLockRegionDirectory($secondLevelCache->getFileLockRegionDirectory());
+
+            $cacheConfiguration = new CacheConfiguration();
+            $cacheConfiguration->setCacheFactory($cacheFactory);
+            $cacheConfiguration->setRegionsConfiguration($regionsConfig);
+
+            $config->setSecondLevelCacheEnabled();
+            $config->setSecondLevelCacheConfiguration($cacheConfiguration);
+        }
+
+        if ($className = $options->getDefaultRepositoryClassName()) {
+            $config->setDefaultRepositoryClassName($className);
         }
 
         $this->setupDBALConfiguration($serviceLocator, $config);

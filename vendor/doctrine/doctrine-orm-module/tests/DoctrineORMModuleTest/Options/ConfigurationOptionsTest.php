@@ -17,10 +17,11 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace DoctrineORMModuleTest\Collector;
+namespace DoctrineORMModuleTest\Options;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use DoctrineORMModule\Options\Configuration;
+use Doctrine\ORM\Repository\DefaultRepositoryFactory;
 
 class ConfigurationOptionsTest extends TestCase
 {
@@ -39,5 +40,41 @@ class ConfigurationOptionsTest extends TestCase
 
         $this->setExpectedException('Zend\Stdlib\Exception\InvalidArgumentException');
         $options->setNamingStrategy(new \stdClass());
+    }
+
+    public function testSetRepositoryFactory()
+    {
+        $options = new Configuration();
+        $options->setRepositoryFactory(null);
+        $this->assertNull($options->getRepositoryFactory());
+
+        $options->setRepositoryFactory('test');
+        $this->assertSame('test', $options->getRepositoryFactory());
+
+        $repositoryFactory = new DefaultRepositoryFactory();
+        $options->setRepositoryFactory($repositoryFactory);
+        $this->assertSame($repositoryFactory, $options->getRepositoryFactory());
+
+        $this->setExpectedException('Zend\Stdlib\Exception\InvalidArgumentException');
+        $options->setRepositoryFactory(new \stdClass());
+    }
+
+    public function testSetGetEntityListenerResolver()
+    {
+        $options = new Configuration();
+
+        $options->setEntityListenerResolver(null);
+        $this->assertNull($options->getEntityListenerResolver());
+
+        $options->setEntityListenerResolver('test');
+        $this->assertSame('test', $options->getEntityListenerResolver());
+
+        $entityListenerResolver = $this->getMock('Doctrine\ORM\Mapping\EntityListenerResolver');
+
+        $options->setEntityListenerResolver($entityListenerResolver);
+        $this->assertSame($entityListenerResolver, $options->getEntityListenerResolver());
+
+        $this->setExpectedException('Zend\Stdlib\Exception\InvalidArgumentException');
+        $options->setEntityListenerResolver(new \stdClass());
     }
 }

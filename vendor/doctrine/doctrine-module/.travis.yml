@@ -1,22 +1,23 @@
 language: php
 
 php:
-  - 5.3
-  - 5.4
+  - 5.5
+  - 5.6
+  - 7
+  - hhvm
+
+matrix:
+  allow_failures:
+    - php: hhvm
 
 before_script:
-  - cd ..
-  - git clone git://github.com/zendframework/ZendSkeletonApplication.git
-  - cd ZendSkeletonApplication
-  - cp ../DoctrineModule/.travis/composer.json ./
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev --prefer-source
-  - rm -rf vendor/doctrine/doctrine-module
-  - cp -r ../DoctrineModule vendor/doctrine/doctrine-module
-  - rm config/application.config.php && cp ../DoctrineModule/.travis/application.config.php config/
+  - composer install --no-interaction --prefer-source
 
 script:
-  - ./vendor/bin/doctrine-module help
-  - ./vendor/bin/doctrine-module list
-  - cd vendor/doctrine/doctrine-module/tests
-  - phpunit
+  - ./vendor/bin/phpunit --coverage-clover ./build/clover.xml
+  - if [ $TRAVIS_PHP_VERSION != 'hhvm' ] && [ $TRAVIS_PHP_VERSION != '7' ]; then php build/coverage-checker.php build/clover.xml 70; fi
+  - ./vendor/bin/phpcs --standard=vendor/doctrine/coding-standard/Doctrine ./src/ ./tests/
+
+after_script:
+  - if [ $TRAVIS_PHP_VERSION != 'hhvm' ] && [ $TRAVIS_PHP_VERSION != '7' ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+  - if [ $TRAVIS_PHP_VERSION != 'hhvm' ] && [ $TRAVIS_PHP_VERSION != '7' ]; then php ocular.phar code-coverage:upload --format=php-clover ./build/clover.xml; fi

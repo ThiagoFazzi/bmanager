@@ -22,6 +22,7 @@ namespace DoctrineModule\Form\Element;
 use DoctrineModule\Form\Element\Proxy;
 use Zend\Form\Element\MultiCheckbox;
 use Zend\Form\Form;
+use Zend\Stdlib\ArrayUtils;
 
 class ObjectMultiCheckbox extends MultiCheckbox
 {
@@ -43,7 +44,7 @@ class ObjectMultiCheckbox extends MultiCheckbox
 
     /**
      * @param  array|\Traversable $options
-     * @return ObjectSelect
+     * @return self
      */
     public function setOptions($options)
     {
@@ -52,11 +53,30 @@ class ObjectMultiCheckbox extends MultiCheckbox
     }
 
     /**
+     * @param string $key
+     * @param mixed $value
+     * @return self
+     */
+    public function setOption($key, $value)
+    {
+        $this->getProxy()->setOptions(array($key => $value));
+        return parent::setOption($key, $value);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function setValue($value)
     {
-        return parent::setValue($this->getProxy()->getValue($value));
+        if ($value instanceof \Traversable) {
+            $value = ArrayUtils::iteratorToArray($value);
+        } elseif ($value == null) {
+            return parent::setValue(array());
+        } elseif (!is_array($value)) {
+            $value = (array)$value;
+        }
+
+        return parent::setValue(array_map(array($this->getProxy(), 'getValue'), $value));
     }
 
     /**
@@ -64,9 +84,16 @@ class ObjectMultiCheckbox extends MultiCheckbox
      */
     public function getValueOptions()
     {
-        if (empty($this->valueOptions)) {
-            $this->setValueOptions($this->getProxy()->getValueOptions());
+        if (! empty($this->valueOptions)) {
+            return $this->valueOptions;
         }
+
+        $proxyValueOptions = $this->getProxy()->getValueOptions();
+
+        if (! empty($proxyValueOptions)) {
+            $this->setValueOptions($proxyValueOptions);
+        }
+
         return $this->valueOptions;
     }
 }

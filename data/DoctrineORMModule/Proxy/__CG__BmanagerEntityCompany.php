@@ -36,7 +36,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'id', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'nickName', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'companyName', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'cnpj', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'ie', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'im', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'street', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'number', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'neighborhood', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'city', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'state', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'cep', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'email', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'phone', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'account');
+            return ['__isInitialized__', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'id', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'nickName', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'companyName', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'cnpj', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'ie', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'im', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'street', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'number', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'neighborhood', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'city', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'state', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'cep', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'email', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'phone', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'account'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'id', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'nickName', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'companyName', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'cnpj', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'ie', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'im', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'street', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'number', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'neighborhood', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'city', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'state', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'cep', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'email', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'phone', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'account');
+        return ['__isInitialized__', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'id', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'nickName', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'companyName', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'cnpj', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'ie', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'im', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'street', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'number', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'neighborhood', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'city', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'state', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'cep', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'email', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'phone', '' . "\0" . 'Bmanager\\Entity\\Company' . "\0" . 'account'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getNickName()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNickName', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNickName', []);
 
         return parent::getNickName();
     }
@@ -205,7 +205,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setNickName($nickName)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNickName', array($nickName));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNickName', [$nickName]);
 
         return parent::setNickName($nickName);
     }
@@ -216,7 +216,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getCompanyName()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCompanyName', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCompanyName', []);
 
         return parent::getCompanyName();
     }
@@ -227,7 +227,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setCompanyName($companyName)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCompanyName', array($companyName));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCompanyName', [$companyName]);
 
         return parent::setCompanyName($companyName);
     }
@@ -238,7 +238,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getCnpj()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCnpj', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCnpj', []);
 
         return parent::getCnpj();
     }
@@ -249,7 +249,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setCnpj($cnpj)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCnpj', array($cnpj));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCnpj', [$cnpj]);
 
         return parent::setCnpj($cnpj);
     }
@@ -260,7 +260,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getIe()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIe', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIe', []);
 
         return parent::getIe();
     }
@@ -271,7 +271,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setIe($ie)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIe', array($ie));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIe', [$ie]);
 
         return parent::setIe($ie);
     }
@@ -282,7 +282,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getIm()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIm', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIm', []);
 
         return parent::getIm();
     }
@@ -293,7 +293,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setIm($im)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIm', array($im));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIm', [$im]);
 
         return parent::setIm($im);
     }
@@ -304,7 +304,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getStreet()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStreet', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStreet', []);
 
         return parent::getStreet();
     }
@@ -315,7 +315,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setStreet($street)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStreet', array($street));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStreet', [$street]);
 
         return parent::setStreet($street);
     }
@@ -326,7 +326,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getNumber()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNumber', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNumber', []);
 
         return parent::getNumber();
     }
@@ -337,7 +337,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setNumber($number)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNumber', array($number));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNumber', [$number]);
 
         return parent::setNumber($number);
     }
@@ -348,7 +348,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getNeighborhood()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNeighborhood', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNeighborhood', []);
 
         return parent::getNeighborhood();
     }
@@ -359,7 +359,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setNeighborhood($neighborhood)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNeighborhood', array($neighborhood));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNeighborhood', [$neighborhood]);
 
         return parent::setNeighborhood($neighborhood);
     }
@@ -370,7 +370,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getCity()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCity', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCity', []);
 
         return parent::getCity();
     }
@@ -381,7 +381,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setCity($city)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCity', array($city));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCity', [$city]);
 
         return parent::setCity($city);
     }
@@ -392,7 +392,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getState()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getState', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getState', []);
 
         return parent::getState();
     }
@@ -403,7 +403,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setState($state)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setState', array($state));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setState', [$state]);
 
         return parent::setState($state);
     }
@@ -414,7 +414,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getCep()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCep', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCep', []);
 
         return parent::getCep();
     }
@@ -425,7 +425,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setCep($cep)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCep', array($cep));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCep', [$cep]);
 
         return parent::setCep($cep);
     }
@@ -436,7 +436,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getEmail()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmail', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmail', []);
 
         return parent::getEmail();
     }
@@ -447,7 +447,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setEmail($email)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', array($email));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', [$email]);
 
         return parent::setEmail($email);
     }
@@ -458,7 +458,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function getPhone()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPhone', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPhone', []);
 
         return parent::getPhone();
     }
@@ -469,7 +469,7 @@ class Company extends \Bmanager\Entity\Company implements \Doctrine\ORM\Proxy\Pr
     public function setPhone($phone)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPhone', array($phone));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPhone', [$phone]);
 
         return parent::setPhone($phone);
     }

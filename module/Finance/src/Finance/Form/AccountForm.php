@@ -3,84 +3,48 @@ namespace Finance\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Element;
-use Doctrine\ORM\EntityManager;
-
 
 class AccountForm extends Form {
 
 
-	public function __construct(EntityManager $entityManager) {
-
-		parent::__construct('formAccount');
+	public function __construct($companys,$banks,$agencys,$accountTypes) {
+		parent::__construct('form-account');
 
 		#field select for company
 		$this->add([
-			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			'type' => 'Select',
 			'name' => 'company',
 			'options' => [
-				'object_manager' => $entityManager,
-				'target_class' => 'Bmanager\Entity\Company',
-				'property' => 'nickName',
-				'empty_option' => 'selecione uma empresa'
-			],
-			'attributes' => [
-				'class' => 'form-control'
-			]
-		]);
-
-		/*$this->add([
-			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-			'name' => 'bank',
-			'options' => [
-				'object_manager' => $entityManager,
-				'target_class' => 'Finance\Entity\Bank',
-				'property' => 'name',
-				'empty_option' => 'selecione um banco',
+				'empty_option' => 'selecione uma empresa',
+				'value_options' => $companys,
 			],
 			'attributes' => [
 				'class' => 'form-control',
-			]
+			],
 		]);
 
-		$this->add([
-			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-			'name' => 'agency',
-			'options' => [
-				'object_manager' => $entityManager,
-				'target_class' => 'Finance\Entity\Agency',
-				'property' => 'name',
-				'empty_option' => 'selecione uma agência',
-			],
-			'attributes' => [
-				'class' => 'form-control',
-				'id' => 'bank',
-			]
-		]);*/
-
+		
 		#field select for bank
 		$this->add([
-			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			'type' => 'Select',
 			'name' => 'bank',
 			'options' => [
-				'object_manager' => $entityManager,
-				'target_class' => 'Finance\Entity\Bank',
-				'property' => 'name',
 				'empty_option' => 'selecione um banco',
+				'value_options' => $banks,
 			],
 			'attributes' => [
 				'class' => 'form-control',
-				'id' => 'bank',
-				'onChange' => 'getAgencyByBank()'
-				
-			]
+				'id' => 'bank'
+			],
 		]);
+	
 
-		#field select for agency
 		$this->add([
 			'type' => 'Select',
 			'name' => 'agency',
 			'options' => [
 				'empty_option' => 'selecione uma agência',
+				'value_options' => $agencys,
 			],
 			'attributes' => [
 				'class' => 'form-control',
@@ -94,22 +58,20 @@ class AccountForm extends Form {
 			'name' => 'number',
 			'attributes' => [
 				'class' => 'form-control',
-				'placeholder' => 'número da agência'
+				'placeholder' => 'número da conta'
 			]
 		]);
 
 		$this->add([
-			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			'type' => 'Select',
 			'name' => 'accountType',
 			'options' => [
-				'object_manager' => $entityManager,
-				'target_class' => 'Finance\Entity\AccountType',
-				'property' => 'name',
-				'empty_option' => 'selecione um tipo de conta'
+				'empty_option' => 'selecione um tipo de conta',
+				'value_options' => $accountTypes,
 			],
 			'attributes' => [
-				'class' => 'form-control'
-			]
+				'class' => 'form-control',
+			],
 		]);		
 
 		$this->add(new Element\Csrf('csrf'));

@@ -6,7 +6,7 @@
 			<div class="panel-body">
 				<form method="post" action="<?= $this->url('finance', ['controller'=>'Agency','action'=>'delete']) ?>">
 					<input type="hidden" value="<?= $agency->getId(); ?>" name ="id">
-					<p class="alert alert-danger" >Deseja realmente remover a agência <strong><?= $agency->getName(); ?></strong> da lista?</p>
+					<p class="alert alert-danger" >Deseja realmente remover a agência <strong><?= $agency->getName(); ?></strong> do <strong><?= $agency->getBank()->getName(); ?></strong> da lista?</p>
 					<input type="submit" value="Sim" class="btn btn-danger"></input>
 					<a href="<?= $this->url('finance',['controller'=>'Agency','action'=>'Index']); ?>" class="btn btn-primary">Não</a>
 				</form>
