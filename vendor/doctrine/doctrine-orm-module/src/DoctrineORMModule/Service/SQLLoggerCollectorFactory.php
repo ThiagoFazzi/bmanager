@@ -21,11 +21,8 @@ namespace DoctrineORMModule\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-
 use RuntimeException;
-
 use DoctrineORMModule\Collector\SQLLoggerCollector;
-
 use Doctrine\DBAL\Logging\DebugStack;
 use Doctrine\DBAL\Logging\LoggerChain;
 
@@ -44,7 +41,7 @@ class SQLLoggerCollectorFactory implements FactoryInterface
     protected $name;
 
     /**
-     * @param $name
+     * @param string $name
      */
     public function __construct($name)
     {
@@ -78,7 +75,7 @@ class SQLLoggerCollectorFactory implements FactoryInterface
             $configuration->setSQLLogger($debugStackLogger);
         }
 
-        return new SQLLoggerCollector($debugStackLogger, $options->getName());
+        return new SQLLoggerCollector($debugStackLogger, 'doctrine.sql_logger_collector.' . $options->getName());
     }
 
     /**
@@ -95,10 +92,12 @@ class SQLLoggerCollectorFactory implements FactoryInterface
             : null;
 
         if (null === $options) {
-            throw new RuntimeException(sprintf(
-                'Configuration with name "%s" could not be found in "doctrine.sql_logger_collector".',
-                $this->name
-            ));
+            throw new RuntimeException(
+                sprintf(
+                    'Configuration with name "%s" could not be found in "doctrine.sql_logger_collector".',
+                    $this->name
+                )
+            );
         }
 
         $optionsClass = $this->getOptionsClass();

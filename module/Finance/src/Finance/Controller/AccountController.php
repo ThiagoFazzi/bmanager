@@ -2,6 +2,7 @@
 namespace Finance\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 use Finance\Entity\Account;
 use Finance\Form\AccountForm;
@@ -14,6 +15,19 @@ use Zend\Json\Json;
 use Doctrine\ORM\Query;
 
 class AccountController extends AbstractActionController {
+
+	protected $serviceLocator = null;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+        return $this;
+    }
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
+
 
 	# Method for list all accounts
 	public function indexAction() {
@@ -42,31 +56,22 @@ class AccountController extends AbstractActionController {
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 		$companyRepository = $entityManager->getRepository('Bmanager\Entity\Company');
+		$companys = $companyRepository->getFindCompany();
 		$bankRepository = $entityManager->getRepository('Finance\Entity\Bank');
+		$banks = $bankRepository->getFindBank();
 		$agencyRepository = $entityManager->getRepository('Finance\Entity\Agency');
+		$agencys = $agencyRepository->getFindAgency();
 		$accountTypeRepository = $entityManager->getRepository('Finance\Entity\AccountType');
-		
-		$form = new AccountForm($entityManager);
+		$accountTypes = $accountTypeRepository->getFindAccountType();
+		$form = new AccountForm($companys,$banks,$agencys,$accountTypes);
 
 		if($this->request->isPost()){
-			
-			$number = $this->request->getPost('number');
 		
 			$company = $companyRepository->find($this->request->getPost('company'));
 			$bank = $bankRepository->find($this->request->getPost('bank'));
 			$agency = $agencyRepository->find($this->request->getPost('agency'));
+			$number = $this->request->getPost('number');
 			$accountType = $accountTypeRepository->find($this->request->getPost('accountType'));
-
-			//echo "<pre>";
-			//var_dump($agency->getBank()->getName());
-			//echo "</pre>";
-
-			$agency->setBank($bank);
-
-			//echo "<pre>";
-			//echo print_r($agency);
-			//echo "</pre>";
-
 
 			$account = new Account($number);
 			$account->setCompany($company);
@@ -74,7 +79,6 @@ class AccountController extends AbstractActionController {
 			$account->setAccountType($accountType);
 
 			$accountValidator = new AccountValidator();
-
 			$form->setInputFilter($accountValidator->getInputFilter());
 			$form->setData($this->request->getPost());
 
@@ -84,7 +88,6 @@ class AccountController extends AbstractActionController {
 				$entityManager->flush();
 
 				$this->flashMessenger()->addSuccessMessage('Conta cadastrada com sucesso!!');
-
 				return $this->redirect()->toRoute('finance', array('controller' => 'Account', 'action' => 'index'));
 			}
 		}
@@ -92,59 +95,56 @@ class AccountController extends AbstractActionController {
 		return new ViewModel(['form' => $form]);
 	}
 
-	public function findAgencyByBankAction() {
-
-		$id = $this->params()->fromRoute('id');
-		if(is_null($id)){
-			$id = $this->params()->fromPost('id');
-		}
-
-		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		
-		$queryBuilder = $entityManager->createQueryBuilder();
-		$queryBuilder->select('a')->from('Finance\Entity\Agency', 'a');
-
-		$results = $queryBuilder->getQuery()->getResult(\Doctrine\ORM\AbstractQuery::HYDRATE_ARRAY);
-
-		return new JsonModel($results);
-
-	}
-
 	# Method for update agency
-	/*public function updateAction(){
+	public function updateAction(){
 
 		$id = $this->params()->fromRoute('id');
-		
 		if(is_null($id)){
 			$id = $this->request->getPost('id');
 		}	
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		$agencyRepository = $entityManager->getRepository('Finance\Entity\Agency');
+		$companyRepository = $entityManager->getRepository('Bmanager\Entity\Company');
+		$companys = $companyRepository->getFindCompany();
 		$bankRepository = $entityManager->getRepository('Finance\Entity\Bank');
-		$agency = $agencyRepository->find($id);
-
-		$form = new AgencyForm($entityManager);
+		$banks = $bankRepository->getFindBank();
+		$agencyRepository = $entityManager->getRepository('Finance\Entity\Agency');
+		$agencys = $agencyRepository->getFindAgency();
+		$accountTypeRepository = $entityManager->getRepository('Finance\Entity\AccountType');
+		$accountTypes = $accountTypeRepository->getFindAccountType();
+		$accountRepository = $entityManager->getRepository('Finance\Entity\Account');
+		$account = $accountRepository->find($id);
+		$form = new AccountForm($companys,$banks,$agencys,$accountTypes);
 
 		if($this->request->isPost()){
-			$agency->setName($this->request->getPost('name'));
-			$agency->setNumber($this->request->getPost('number'));
+		
+			$company = $companyRepository->find($this->request->getPost('company'));
 			$bank = $bankRepository->find($this->request->getPost('bank'));
+			$agency = $agencyRepository->find($this->request->getPost('agency'));
+			$accountType = $accountTypeRepository->find($this->request->getPost('accountType'));
 
-			$agency->setBank($bank);
+			$account->setNumber($this->request->getPost('number'));
+			$account->setCompany($company);
+			$account->setAgency($agency);
+			$account->setAccountType($accountType);
 
-			$entityManager->persist($agency);
-			$entityManager->flush();
-   			
-   			$this->flashMessenger()->addSuccessMessage("Agência alterada com sucesso!");
+			$accountValidator = new AccountValidator();
+			$form->setInputFilter($accountValidator->getInputFilter());
+			$form->setData($this->request->getPost());
 
-			return $this->redirect()->toRoute('finance', array('controller' => 'Agency', 'action' => 'index'));
+			if($form->isValid()){
+				
+				$entityManager->persist($account);
+				$entityManager->flush();
 
+				$this->flashMessenger()->addSuccessMessage('Conta alterada com sucesso!!');
+				return $this->redirect()->toRoute('finance', array('controller' => 'Account', 'action' => 'index'));
+			}
 		}
 
 		$view_params = array(
 			'form' => $form,
-			'agency' => $agency,
+			'account' => $account,
 		);
 
 		return new ViewModel($view_params);
@@ -157,26 +157,25 @@ class AccountController extends AbstractActionController {
 		if(is_null($id)){
 			$id = $this->params()->fromPost('id');
 		}
-
 			
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		$agencyRepository = $entityManager->getRepository('Finance\Entity\Agency');
-		$agency = $agencyRepository->find($id);
+		$accountRepository = $entityManager->getRepository('Finance\Entity\Account');
+		$account = $accountRepository->find($id);
 
 			if($this->request->isPost()){
 
-				$entityManager->remove($agency);
+				$entityManager->remove($account);
 				$entityManager->flush();
 
-				$this->flashMessenger()->addSuccessMessage("Agência excluída com sucesso!");
+				$this->flashMessenger()->addSuccessMessage("Conta excluída com sucesso!");
 
-				return $this->redirect()->toRoute('finance', array('controller' => 'Agency', 'action' => 'index'));
+				return $this->redirect()->toRoute('finance', array('controller' => 'Account', 'action' => 'index'));
 
 			}
 
 
-		$view_params = ['agency'=>$agency];
+		$view_params = ['account'=>$account];
 		return new ViewModel($view_params);
-	}*/
+	}
 
 }

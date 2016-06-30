@@ -40,7 +40,7 @@ class DBALConfigurationFactory implements FactoryInterface
     protected $name;
 
     /**
-     * @param $name
+     * @param string $name
      */
     public function __construct($name)
     {
@@ -95,10 +95,12 @@ class DBALConfigurationFactory implements FactoryInterface
         $options = isset($options['configuration'][$this->name]) ? $options['configuration'][$this->name] : null;
 
         if (null === $options) {
-            throw new RuntimeException(sprintf(
-                'Configuration with name "%s" could not be found in "doctrine.configuration".',
-                $this->name
-            ));
+            throw new RuntimeException(
+                sprintf(
+                    'Configuration with name "%s" could not be found in "doctrine.configuration".',
+                    $this->name
+                )
+            );
         }
 
         $optionsClass = $this->getOptionsClass();

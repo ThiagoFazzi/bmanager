@@ -3,7 +3,9 @@ namespace Bmanager\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\Entity */
+ /**
+ * @ORM\Entity(repositoryClass="Bmanager\Entity\Repository\CompanyRepository")
+ */
 class Company {
 
 	/** 

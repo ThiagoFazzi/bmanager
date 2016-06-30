@@ -3,7 +3,9 @@ namespace Finance\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\Entity **/
+/**
+ * @ORM\Entity(repositoryClass="Finance\Entity\Repository\AccountTypeRepository")
+ */
 class AccountType {
 
 	/**

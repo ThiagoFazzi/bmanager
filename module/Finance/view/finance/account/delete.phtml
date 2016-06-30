@@ -1,0 +1,16 @@
+<div class="row">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="panel panel-primary">
+		<!--<h1 class="alert alert-info">Empresas</h1>-->
+			<div class=" h2 panel-heading">Cadastro de Contas</div>
+			<div class="panel-body">
+				<form method="post" action="<?= $this->url('finance', ['controller'=>'Account','action'=>'delete']) ?>">
+					<input type="hidden" value="<?= $account->getId(); ?>" name ="id">
+					<p class="alert alert-danger" >Deseja realmente remover a <strong><?= $account->getAccountType()->getName(); ?></strong> número <strong><?= $account->getNumber(); ?></strong> da agência <strong><?= $account->getAgency()->getName(); ?></strong> do <strong><?= $account->getAgency()->getBank()->getName(); ?></strong> da <strong><?= $account->getCompany()->getNickName(); ?></strong> da lista?</p>
+					<input type="submit" value="Sim" class="btn btn-danger"></input>
+					<a href="<?= $this->url('finance',['controller'=>'Account','action'=>'Index']); ?>" class="btn btn-primary">Não</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

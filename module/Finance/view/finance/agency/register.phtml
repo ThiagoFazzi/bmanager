@@ -3,16 +3,21 @@
 		<div class="panel panel-primary">
 			<div class=" h2 panel-heading">Cadastro de Agência</div>
 			<div class="panel-body">
-
 				<?php
 				 	echo $this->form()->openTag($form);
+
 				?>
 
 				<div class="form-group">
 					<label for="bank">Banco</label>
-					<?php 
-						echo $this->formSelect($form->get('bank'));
-					?>
+					<div class="input-group">
+						<?php 
+							echo $this->formSelect($form->get('bank'));
+						?>
+						<span class="input-group-btn">
+							<a href="<?= $this->url('finance',['controller'=>'Bank','action'=>'register']); ?>" class="btn btn-primary"><span class="glyphicon glyphicon-plus" title="Novo Banco"></span></a>
+						</span>
+					</div>					
 				</div>
 
 				<div class="form-group">

@@ -2,10 +2,9 @@
 namespace Finance\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**  
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Finance\Entity\Repository\BankRepository")
  * @ORM\Table(name="Bank")
  */
 class Bank {
@@ -15,22 +14,22 @@ class Bank {
 	* @ORM\Column(type="integer")
 	* @ORM\GeneratedValue(strategy="AUTO")
 	*/
-	private $id;
+	protected $id;
 
 	/**
 	* @ORM\column(type="string",length=255, unique=true)
 	*/
-	private $name;
+	protected $name;
 
 	/**
 	* @ORM\column(type="string",length=3)
 	*/
-	private $number;
+	protected $number;
 
 	/**
-	* @ORM\OneToMany(targetEntity="Finance\Entity\Agency", cascade={"all"}, mappedBy="bank")
+	* @ORM\OneToMany(targetEntity="Finance\Entity\Agency", cascade={"persist"}, mappedBy="bank")
 	*/
-	private $agency;
+	protected $agency;
 
 	public function __construct($name,$number) {
 		$this->name = $name;
@@ -55,5 +54,9 @@ class Bank {
 
 	public function setNumber($number) {
 		$this->number = $number;
+	}
+
+	public function getAgency() {
+		return $this->agency;
 	}
 }

@@ -10,38 +10,58 @@
 
 				<div class="form-group">
 					<label for="company">Empresa</label>
-					<?php 
-						echo $this->formSelect($form->get('company'));
-					?>
+					<div class="input-group">
+							<?php 
+								echo $this->formSelect($form->get('company'));
+							?>
+	      				<span class="input-group-btn">
+							<a href="<?= $this->url('application',['controller'=>'Company','action'=>'register']); ?>" class="btn btn-primary"><span class="glyphicon glyphicon-plus" title="Nova Empresa"></span></a>
+						</span>
+					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="bank">Banco</label>
-					<?php 
-						echo $this->formSelect($form->get('bank'));
-					?>
+					<div class="input-group">
+						<?php 
+							echo $this->formSelect($form->get('bank'));
+						?>
+	      				<span class="input-group-btn">
+							<a href="<?= $this->url('finance',['controller'=>'Bank','action'=>'register']); ?>" class="btn btn-primary"><span class="glyphicon glyphicon-plus" title="Novo Banco"></span></a>
+						</span>
+					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="agency">Agência</label>
-					<?php 
-						echo $this->formSelect($form->get('agency'));
-					?>
+					<div class="input-group">					
+						<?php
+							echo $this->formSelect($form->get('agency'));
+						?>
+	      				<span class="input-group-btn">
+							<a href="<?= $this->url('finance',['controller'=>'Agency','action'=>'register']); ?>" class="btn btn-primary"><span class="glyphicon glyphicon-plus" title="Nova Agência"></span></a>
+						</span>
+					</div>
 				</div>				
 
 				<div class="form-group">
 					<label for="number">Número</label>
-					<?php
-						echo $this->formInput($form->get('number'));
-						echo $this->formElementErrors()->render($form->get('number'));
-					?>
+						<?php
+							echo $this->formInput($form->get('number'));
+							echo $this->formElementErrors()->render($form->get('number'));
+						?>
 				</div>
 
 				<div class="form-group">
 					<label for="accountType">Banco</label>
-					<?php 
-						echo $this->formSelect($form->get('accountType'));
-					?>
+					<div class="input-group">					
+						<?php 
+							echo $this->formSelect($form->get('accountType'));
+						?>
+	      				<span class="input-group-btn">
+							<a href="<?= $this->url('finance',['controller'=>'Agency','action'=>'register']); ?>" class="btn btn-primary"><span class="glyphicon glyphicon-plus" title="Nova Agência"></span></a>
+						</span>
+					</div>
 				</div>
 
 				<?php
