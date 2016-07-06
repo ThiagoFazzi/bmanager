@@ -85,6 +85,12 @@ class Company {
 	*/
 	private $account;
 
+	/**
+	* @ORM\OneToMany(targetEntity="Bmanager\Entity\Level", mappedBy="company")
+	*/
+	private $level;
+
+
 	public function __construct($nickName,$companyName,$cnpj,$im,$street,$number,$neighborhood,$city,$state,$cep,$phone,$email) {
 		$this->nickName = $nickName;
 		$this->companyName = $companyName;

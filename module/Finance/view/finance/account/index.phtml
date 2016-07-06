@@ -3,7 +3,7 @@
 		<div class="panel panel-primary">
 			<div class=" h2 panel-heading nav">
 				<div class="navbar-left">Contas</div>
-				<div class="navbar-right"><a href="<?= $this->url('finance',['controller' => 'Account','action' => 'register']) ?>" class="btn btn-default "><span class="glyphicon glyphicon-file" title="Nova Conta"></span></a></div>
+				<div class="navbar-right"><a href="<?= $this->url('finance',['controller' => 'Account','action' => 'register']) ?>" class="btn btn-default " data-toggle="tooltip" data-placement="right" title="Cadastrar nova Conta"><span class="glyphicon glyphicon-plus"></span></a></div>
 			</div>
 			<div class="panel-body">
 				<table class="table table-striped">
@@ -27,8 +27,8 @@
 							<td><?= $a->getNumber(); ?></td>
 							<td><?= $a->getAccountType()->getName();  ?></td>
 							<td>
-								<a href="<?= $this->url('finance', ['controller' => 'Account','action' =>'delete', 'id' => $a->getId()]) ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash" title="Excluir"></span></a>
-								<a href="<?= $this->url('finance', ['controller' => 'Account','action' =>'update', 'id' => $a->getId()]) ?>" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" title="Alterar"></span></a>
+								<a href="<?= $this->url('finance', ['controller' => 'Account','action' =>'delete', 'id' => $a->getId()]) ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Remover Conta"><span class="glyphicon glyphicon-trash"></span></a>
+								<a href="<?= $this->url('finance', ['controller' => 'Account','action' =>'update', 'id' => $a->getId()]) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Alterar Conta"><span class="glyphicon glyphicon-pencil"></span></a>
 							</td>
 						</tr>
 

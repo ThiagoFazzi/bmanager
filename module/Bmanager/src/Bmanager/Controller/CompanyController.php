@@ -2,12 +2,26 @@
 namespace Bmanager\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 use Bmanager\Entity\Company;
 use Bmanager\Form\CompanyForm;
 use Bmanager\Validator\CompanyValidator;
+use Bmanager\Entity\LevelRepository;
 
 class CompanyController extends AbstractActionController {
+
+	protected $serviceLocator = null;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+        return $this;
+    }
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }	
 
 	# Method for list all companys
 	public function indexAction() {
@@ -65,6 +79,12 @@ class CompanyController extends AbstractActionController {
 				$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 				$entityManager->persist($company);
 				$entityManager->flush();
+
+
+
+
+				$levelRepository = $entityManager->getRepository('Bmanager\Entity\Level');
+				$levelRepository->createLevelCompany($company,$entityManager);
 
 				$this->flashMessenger()->addSuccessMessage('Empresa cadastrada com sucesso!!');
 
