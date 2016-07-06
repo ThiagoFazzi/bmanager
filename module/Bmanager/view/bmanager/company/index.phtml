@@ -21,11 +21,10 @@
 							<td><?= $c->getCnpj(); ?></td>
 							<td><?= $c->getIm(); ?></td>
 							<td>
-								<a href="<?= $this->url('application', ['controller' => 'Company','action' =>'delete', 'id' => $c->getId()]) ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash" title="Excluir"></span></a>
-								<a href="<?= $this->url('application', ['controller' => 'Company','action' =>'update', 'id' => $c->getId()]) ?>" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" title="Alterar"></span></a>
+								<a href="<?= $this->url('application', ['controller' => 'Company','action' =>'delete', 'id' => $c->getId()]) ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Excluir Empresa"><span class="glyphicon glyphicon-trash"></span></a>
+								<a href="<?= $this->url('application', ['controller' => 'Company','action' =>'update', 'id' => $c->getId()]) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Alterar Empresa"><span class="glyphicon glyphicon-pencil"></span></a>
 							</td>
 						</tr>
-
 						<?php
 							}
 						 ?>

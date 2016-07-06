@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="panel panel-primary">
+			<div class=" h2 panel-heading">Itens do Plano de Contas</div>
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th class="text-primary">Nome</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php 
+							foreach ($items as $i) {
+						?>
+						<tr>
+							<td><?= $i->getName(); ?></td>
+							<td>
+								<a href="<?= $this->url('finance', ['controller' => 'StructureItem','action' =>'delete', 'id' => $i->getId()]) ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash" title="Excluir"></span></a>
+								<a href="<?= $this->url('finance', ['controller' => 'StructureItem','action' =>'update', 'id' => $i->getId()]) ?>" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" title="Alterar"></span></a>
+							</td>
+						</tr>
+
+						<?php
+							}
+						 ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
