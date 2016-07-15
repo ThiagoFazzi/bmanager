@@ -7,12 +7,14 @@
 		echo $this->headLink()
 		->prependStylesheet($this->basePath('css/style.css'))
 		->prependStylesheet($this->basePath('css/bootstrap.css'))
-		->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'));
+		->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+		->prependStylesheet($this->basePath('css/struct-tree/struct-tree.css'));
 
 		echo $this->headScript()
 		->appendFile($this->basePath('js/jQuery.js'))
 		->appendFile($this->basePath('js/script/script.js'))
-		->appendFile($this->basePath('js/bootstrap.min.js'));
+		->appendFile($this->basePath('js/bootstrap.min.js'))
+		->appendFile($this->basePath('js/struct-tree/struct-tree.js'));
 	?>
 
 </head>
@@ -51,7 +53,8 @@
 						<li><a href="<?= $this->url('finance',['controller' => 'Account','action' => 'index']) ?>">Contas</a></li>
 						<li><a href="<?= $this->url('finance',['controller' => 'Account','action' => 'register']) ?>">Cadastrar Conta</a></li>
 						<li><a href="<?= $this->url('finance',['controller' => 'StructureItem','action' => 'index']) ?>">Itens do Plano de Contas</a></li>
-						<li><a href="<?= $this->url('finance',['controller' => 'StructureItem','action' => 'register']) ?>">Cadastrar Itens do Plano de Contas</a></li>												
+						<li><a href="<?= $this->url('finance',['controller' => 'StructureItem','action' => 'register']) ?>">Cadastrar Itens do Plano de Contas</a></li>										
+						<li><a href="<?= $this->url('finance',['controller' => 'Structure','action' => 'register']) ?>">Cadastrar Plano de Contas</a></li>										
 					</ul>
 				</li>
 

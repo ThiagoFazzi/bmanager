@@ -46,6 +46,7 @@ return array(
 			'Finance\Controller\AccountType' => 'Finance\Controller\AccountTypeController',
 			'Finance\Controller\Account' => 'Finance\Controller\AccountController',
 			'Finance\Controller\StructureItem' => 'Finance\Controller\StructureItemController',
+			'Finance\Controller\Structure' => 'Finance\Controller\StructureController',
 		)
 	),
 	'view_manager' => array(

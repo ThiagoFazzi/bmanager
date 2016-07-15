@@ -8,3 +8,13 @@
 .conteudo {
   padding:20px;
 }
+
+.struct-panel {
+	height: 600px;
+}
+
+.panel-structure {
+	height: 570px;
+	overflow: auto;
+	border-right: solid 1px #bce8f1;	
+}

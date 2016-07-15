@@ -1,0 +1,13 @@
+#structTree li {
+	list-style-type: none;
+	padding-top: 4px;
+}
+
+#structTree a {
+	text-decoration: none;
+}
+
+#structTree a:hover {
+	text-decoration: none;
+	color: orange;
+}
