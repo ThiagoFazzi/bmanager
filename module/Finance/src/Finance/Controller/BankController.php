@@ -50,9 +50,19 @@ class BankController extends AbstractActionController {
 		$form = new BankForm();
 
 		if($this->request->isPost()){
-			
+
+			echo "<pre>";
+			echo print_r($this->request->getPost('name'));
+			echo print_r($this->request->getPost('number'));
+			echo "</pre>";
+			die();
 			$name = $this->request->getPost('name');
 			$number = $this->request->getPost('number');
+
+
+			
+
+
 
 			$bank = new Bank($name,$number);
 

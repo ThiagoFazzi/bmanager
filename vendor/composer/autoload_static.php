@@ -70,6 +70,7 @@ class ComposerStaticInit5709d426113cc13de59f8159c8a81d49
             'Zend\\Cache\\' => 11,
             'Zend\\Barcode\\' => 13,
             'Zend\\Authentication\\' => 20,
+            'ZendDeveloperTools\\' => 19,
         ),
         'W' => 
         array (
@@ -313,6 +314,10 @@ class ComposerStaticInit5709d426113cc13de59f8159c8a81d49
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-authentication/src',
         ),
+        'ZendDeveloperTools\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-developer-tools/src',
+        ),
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
@@ -369,10 +374,6 @@ class ComposerStaticInit5709d426113cc13de59f8159c8a81d49
             'ZendDiagnosticsTest\\' => 
             array (
                 0 => __DIR__ . '/..' . '/zendframework/zenddiagnostics/tests',
-            ),
-            'ZendDeveloperTools' => 
-            array (
-                0 => __DIR__ . '/..' . '/zendframework/zend-developer-tools/src',
             ),
             'ZFTool\\' => 
             array (

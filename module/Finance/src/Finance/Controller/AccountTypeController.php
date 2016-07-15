@@ -2,12 +2,25 @@
 namespace Finance\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 use Finance\Entity\AccountType;
 use Finance\Form\AccountTypeForm;
 use Finance\Validator\AccountTypeValidator;
 
 class AccountTypeController extends AbstractActionController {
+
+	protected $serviceLocator = null;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+        return $this;
+    }
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
 
 	# Method for list all AccountType
 	public function indexAction() {
@@ -76,7 +89,7 @@ class AccountTypeController extends AbstractActionController {
 		}	
 
 		$entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		$agencyRepository = $entityManager->getRepository('Finance\Entity\AccountType');
+		$accountTypeRepository = $entityManager->getRepository('Finance\Entity\AccountType');
 		$accountType = $accountTypeRepository->find($id);
 
 		$form = new AccountTypeForm($entityManager);

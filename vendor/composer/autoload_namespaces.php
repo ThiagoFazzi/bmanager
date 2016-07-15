@@ -9,7 +9,6 @@ return array(
     'ZendXml\\' => array($vendorDir . '/zendframework/zendxml/library'),
     'ZendDiagnostics\\' => array($vendorDir . '/zendframework/zenddiagnostics/src'),
     'ZendDiagnosticsTest\\' => array($vendorDir . '/zendframework/zenddiagnostics/tests'),
-    'ZendDeveloperTools' => array($vendorDir . '/zendframework/zend-developer-tools/src'),
     'ZFTool\\' => array($vendorDir . '/zendframework/zftool/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),

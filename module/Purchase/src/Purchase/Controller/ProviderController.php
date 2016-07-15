@@ -2,12 +2,26 @@
 namespace Purchase\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 use Purchase\Entity\Provider;
 use Purchase\Form\ProviderForm;
 use Purchase\Validator\ProviderValidator;
 
 class ProviderController extends AbstractActionController {
+
+	protected $serviceLocator = null;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+        return $this;
+    }
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
+
 
 	# Method for list all companys
 	public function indexAction() {

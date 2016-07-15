@@ -2,11 +2,26 @@
 namespace Commercial\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 use Commercial\Entity\Budget;
 use Commercial\Form\BudgetForm;
 
 class BudgetController extends AbstractActionController {
+
+protected $serviceLocator = null;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+        return $this;
+    }
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
+
+	
 
 	public function indexAction() {
 
