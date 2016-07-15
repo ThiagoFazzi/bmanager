@@ -2,7 +2,14 @@
 	<div class="col-lg-6 col-lg-offset-3">
 		<div class="panel panel-primary">
 		<!--<h1 class="alert alert-info">Empresas</h1>-->
-			<div class=" h2 panel-heading">Fornecedores</div>
+			<div class=" h2 panel-heading nav">
+				<div class="navbar-left">Fornecedores</div>
+				<div class="navbar-right">
+					<a href="<?= $this->url('purchase',['controller' => 'Provider','action' => 'register']) ?>" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Cadastrar novo Fornecedor">
+						<span class="glyphicon glyphicon-plus"></span>
+					</a>
+				</div>
+			</div>
 			<div class="panel-body">
 				<table class="table table-striped">
 					<thead>
@@ -21,8 +28,12 @@
 							<td><?= $p->getCnpj(); ?></td>
 							<td><?= $p->getIm(); ?></td>
 							<td>
-								<a href="<?= $this->url('purchase', ['controller' => 'Provider','action' =>'delete', 'id' => $p->getId()]) ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash" title="Excluir"></span></a>
-								<a href="<?= $this->url('purchase', ['controller' => 'Provider','action' =>'update', 'id' => $p->getId()]) ?>" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" title="Alterar"></span></a>
+								<a href="<?= $this->url('purchase', ['controller' => 'Provider','action' =>'delete', 'id' => $p->getId()]) ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Remover Fornecedor">
+									<span class="glyphicon glyphicon-trash"></span>
+								</a>
+								<a href="<?= $this->url('purchase', ['controller' => 'Provider','action' =>'update', 'id' => $p->getId()]) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Alterar Fornecedor">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</a>
 							</td>
 						</tr>
 

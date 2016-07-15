@@ -15,7 +15,9 @@
 							echo $this->formSelect($form->get('bank'));
 						?>
 						<span class="input-group-btn">
-							<a href="<?= $this->url('finance',['controller'=>'Bank','action'=>'register']); ?>" class="btn btn-primary"><span class="glyphicon glyphicon-plus" title="Novo Banco"></span></a>
+							<a href="<?= $this->url('finance',['controller'=>'Bank','action'=>'register']); ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Novo Banco">
+								<span class="glyphicon glyphicon-plus"></span>
+							</a>
 						</span>
 					</div>					
 				</div>

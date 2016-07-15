@@ -1,7 +1,14 @@
 <div class="row">
 	<div class="col-lg-6 col-lg-offset-3">
 		<div class="panel panel-primary">
-			<div class=" h2 panel-heading">Bancos</div>
+			<div class=" h2 panel-heading nav">
+				<div class="navbar-left">Bancos</div>
+				<div class="navbar-right">
+					<a href="<?= $this->url('finance',['controller' => 'Bank','action' => 'register']) ?>" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Cadastrar novo Banco">
+						<span class="glyphicon glyphicon-plus"></span>
+					</a>
+				</div>
+			</div>
 			<div class="panel-body">
 				<table class="table table-striped">
 					<thead>
@@ -18,8 +25,12 @@
 							<td><?= $b->getName(); ?></td>
 							<td><?= $b->getNumber(); ?></td>
 							<td>
-								<a href="<?= $this->url('finance', ['controller' => 'Bank','action' =>'delete', 'id' => $b->getId()]) ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash" title="Excluir"></span></a>
-								<a href="<?= $this->url('finance', ['controller' => 'Bank','action' =>'update', 'id' => $b->getId()]) ?>" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" title="Alterar"></span></a>
+								<a href="<?= $this->url('finance', ['controller' => 'Bank','action' =>'delete', 'id' => $b->getId()]) ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Remover Banco">
+									<span class="glyphicon glyphicon-trash"></span>
+								</a>
+								<a href="<?= $this->url('finance', ['controller' => 'Bank','action' =>'update', 'id' => $b->getId()]) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Alterar Banco">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</a>
 							</td>
 						</tr>
 

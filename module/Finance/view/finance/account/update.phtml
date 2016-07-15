@@ -15,7 +15,9 @@
 								echo $this->formSelect($form->get('company')->setValue($account->getCompany()));
 							?>
 	      				<span class="input-group-btn">
-							<a href="<?= $this->url('application',['controller'=>'Company','action'=>'register']); ?>" class="btn btn-primary"><span class="glyphicon glyphicon-plus" title="Nova Empresa"></span></a>
+							<a href="<?= $this->url('application',['controller'=>'Company','action'=>'register']); ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Novo Empresa">
+								<span class="glyphicon glyphicon-plus"></span>
+							</a>
 						</span>
 					</div>
 				</div>
@@ -27,7 +29,9 @@
 							echo $this->formSelect($form->get('bank')->setValue($account->getAgency()->getBank()));
 						?>
 	      				<span class="input-group-btn">
-							<a href="<?= $this->url('finance',['controller'=>'Bank','action'=>'register']); ?>" class="btn btn-primary"><span class="glyphicon glyphicon-plus" title="Novo Banco"></span></a>
+							<a href="<?= $this->url('finance',['controller'=>'Bank','action'=>'register']); ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Novo Banco">
+								<span class="glyphicon glyphicon-plus"></span>
+							</a>
 						</span>
 					</div>
 				</div>
@@ -39,7 +43,9 @@
 							echo $this->formSelect($form->get('agency')->setValue($account->getAgency()->getId()));
 						?>
 	      				<span class="input-group-btn">
-							<a href="<?= $this->url('finance',['controller'=>'Agency','action'=>'register']); ?>" class="btn btn-primary"><span class="glyphicon glyphicon-plus" title="Nova Agência"></span></a>
+							<a href="<?= $this->url('finance',['controller'=>'Agency','action'=>'register']); ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Nova Agência">
+								<span class="glyphicon glyphicon-plus"></span>
+							</a>
 						</span>
 					</div>
 				</div>				
@@ -59,7 +65,9 @@
 							echo $this->formSelect($form->get('accountType')->setValue($account->getAccountType()));
 						?>
 	      				<span class="input-group-btn">
-							<a href="<?= $this->url('finance',['controller'=>'Agency','action'=>'register']); ?>" class="btn btn-primary"><span class="glyphicon glyphicon-plus" title="Nova Agência"></span></a>
+							<a href="<?= $this->url('finance',['controller'=>'accountType','action'=>'register']); ?>" class="btn btn-primary"data-toggle="tooltip" data-placement="top" title="Novo Tipo de Conta"  >
+								<span class="glyphicon glyphicon-plus"></span>
+							</a>
 						</span>
 					</div>
 				</div>
