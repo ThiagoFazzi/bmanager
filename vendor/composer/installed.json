@@ -5641,17 +5641,17 @@
     },
     {
         "name": "zendframework/zend-developer-tools",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-            "reference": "4d8a2e4a56b9620fb986657e0e701e1e65bfc7a5"
+            "reference": "e772794d4163c61e909366d4907e22a629662842"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/4d8a2e4a56b9620fb986657e0e701e1e65bfc7a5",
-            "reference": "4d8a2e4a56b9620fb986657e0e701e1e65bfc7a5",
+            "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/e772794d4163c61e909366d4907e22a629662842",
+            "reference": "e772794d4163c61e909366d4907e22a629662842",
             "shasum": ""
         },
         "require": {
@@ -5677,7 +5677,7 @@
             "san/san-session-toolbar": "SanSessionToolbar can help you see current Zend\\Session data you're using within your application.",
             "snapshotpl/zf-snap-event-debugger": "ZfSnapEventDebugger can help you debug events from Zend\\EventManager"
         },
-        "time": "2016-06-27 20:52:58",
+        "time": "2016-06-27 20:51:58",
         "type": "library",
         "extra": {
             "branch-alias": {

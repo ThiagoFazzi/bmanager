@@ -2,7 +2,9 @@
     "require": {
         "zendframework/zendframework": "^2.5",
         "zendframework/zftool": "dev-master",
-        "doctrine/doctrine-orm-module": "^0.10.0",
-        "zendframework/zend-developer-tools": "dev-master"
+        "doctrine/doctrine-orm-module": "^0.10.0"
+    },
+    "require-dev": {
+        "zendframework/zend-developer-tools": "^1.1"
     }
 }
