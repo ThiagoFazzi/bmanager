@@ -7,5 +7,7 @@ nbproject
 .idea
 .project
 .settings
+vendor
+composer.json
 
  

@@ -1,13 +1,25 @@
 <?php
-
-
 namespace Bmanager\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 
 
 class UserController extends AbstractActionController {
+
+	protected $serviceLocator = null;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+        return $this;
+    }
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
+
 
 	public function indexAction() {
 
@@ -23,21 +35,8 @@ class UserController extends AbstractActionController {
 			$authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
 			$authAdapter = $authService->getAdapter();
 
-			#$class_methods = get_class_methods($authAdapter);
-			#echo "<pre>";
-			#print_r($class_methods);
-			#exit();
-
-
 			$authAdapter->setIdentityValue($dados['userName']);
 			$authAdapter->setCredentialValue($dados['password']);
-
-			#echo "<pre>";
-			#print_r($authAdapter->getIdentity());
-			#print_r($authAdapter->getCredential());
-			#exit();
-
-
 
 			$authResult = $authService->authenticate();
 
